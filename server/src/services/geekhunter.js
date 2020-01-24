@@ -2,23 +2,26 @@ import cheerio from 'cheerio';
 import fetchHtml from './request';
 import { formatToBRdate } from '../utils/dateFormater';
 
-const solveDate = createdAt => {
+const timeSwitch = (keyWord, time) =>
+  ({
+    meses: 30 * time,
+    mes: 30,
+    dias: time,
+    dia: 1,
+    horas: 0,
+    hora: 0,
+  }[keyWord]);
+
+const solveDate = jobDateStr => {
+  const createdAt = jobDateStr.replace('ê', 'e');
+  const match = createdAt.match(/(\d+)\s(\w+)\s/);
+  const time = match[1];
+  const keyWord = match[2];
+
+  const dayToSub = timeSwitch(keyWord, time) || 0;
   const date = new Date();
 
-  if (!createdAt.includes('horas')) {
-    const match = createdAt.match(/(\d+).*([a-z])\s/);
-    const time = match[1];
-
-    if (createdAt.includes('mês')) {
-      date.setDate(date.getDate() - 30);
-    } else if (createdAt.includes('meses')) {
-      date.setDate(date.getDate() - time * 30);
-    } else if (createdAt.includes('dias')) {
-      date.setDate(date.getDate() - time);
-    } else if (createdAt.includes('dia')) {
-      date.setDate(date.getDate() - 1);
-    }
-  }
+  date.setDate(date.getDate() - dayToSub);
 
   return formatToBRdate(date);
 };
