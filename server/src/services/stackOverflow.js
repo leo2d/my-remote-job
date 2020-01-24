@@ -1,13 +1,9 @@
 import cheerio from 'cheerio';
 import fetchHTML from './request';
+import { formatToBRdate } from '../utils/dateFormater';
 
 const solveDate = createdAt => {
   let date = new Date();
-  const options = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  };
 
   if (createdAt === 'yesterday') {
     date.setDate(date.getDate() - 1);
@@ -22,10 +18,7 @@ const solveDate = createdAt => {
     }
   }
 
-  const dateString = date.toLocaleDateString('pt-BR', options);
-  const splitedDate = dateString.split('/');
-
-  return `${splitedDate[1]}/${splitedDate[0]}/${splitedDate[2]}`;
+  return formatToBRdate(date);
 };
 
 const scrapData = async () => {
