@@ -1,15 +1,5 @@
-import axios from 'axios';
 import cheerio from 'cheerio';
-
-const requestHispsters = async () => {
-  try {
-    const { data } = await axios.get('https://hipsters.jobs/jobs/?q=&l=Remoto');
-    return data;
-  } catch (error) {
-    console.log('error on REQUEST');
-    console.log(error);
-  }
-};
+import fetchHTML from './request';
 
 const parseData = html => {
   let jobs = [];
@@ -59,9 +49,9 @@ const parseData = html => {
       const job = {
         title,
         company,
-        employmentType,
         location,
         date,
+        employmentType,
         link,
       };
 
@@ -77,10 +67,12 @@ const parseData = html => {
 };
 
 const scrapData = async () => {
-  const responseHtml = await requestHispsters();
+  const responseHtml = await fetchHTML(
+    'https://hipsters.jobs/jobs/?q=&l=Remoto'
+  );
   const jobs = parseData(responseHtml);
 
   return jobs;
 };
 
-export { scrapData as scrapHipstersData };
+export { scrapData as scrapHipsters };
