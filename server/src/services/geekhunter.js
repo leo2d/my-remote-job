@@ -2,55 +2,27 @@ import cheerio from 'cheerio';
 import fetchHtml from './request';
 import { formatToBRdate } from '../utils/dateFormater';
 
-const baseUrl = _ => 'https://www.geekhunter.com.br';
-
 const scrapData = async () => {
-  const $ = await getSelector();
-  const jobsContainer = getJobsContainer($);
+  const $ = await getPageSelector();
 
-  const pageCount = getPageCount($, jobsContainer.length);
+  const firstPageJobs = extractJobs($);
 
-  const jobs = await getAllJobs(pageCount);
+  const jobsPerPage = firstPageJobs.length;
+
+  const pagesCount = getPagesCount($, jobsPerPage);
+
+  const otherPagesJobs = await getAllJobs(2, pagesCount);
+
+  const jobs = [...firstPageJobs, ...otherPagesJobs];
 
   return jobs;
 };
 
-const getSelector = async (page = 1) => {
-  const url = `${baseUrl()}/vagas?workType=remoto&page=1&order=new&page=${page}`;
-  const html = await fetchHtml(url);
-
-  const $ = cheerio.load(html);
-
-  return $;
-};
-
-const getJobsContainer = $ => {
-  const jobsContainer = $('body').find(
-    'div.jobs-container > div.job > div.information'
-  );
-
-  return jobsContainer;
-};
-
-const getPageCount = ($, amountPerPage) => {
-  const totalText = $('body')
-    .find('div.jobs-found > p')
-    .last()
-    .text();
-
-  const total = totalText.match(/\d+/)[0];
-
-  const pageCount = Math.ceil(total / amountPerPage);
-  return pageCount;
-};
-
-const getAllJobs = async pageCount => {
+const getAllJobs = async (pageStart = 1, pagesCount) => {
   let jobs = [];
-
-  for (let i = 1; i <= pageCount; i++) {
-    const $ = await getSelector(i);
-    const jobsContainer = getJobsContainer($);
-    const pageJobs = extractJobs($, jobsContainer, baseUrl());
+  for (let page = pageStart; page <= pagesCount; page++) {
+    const pageSelector = await getPageSelector(page);
+    const pageJobs = extractJobs(pageSelector, getUrl().baseUrl);
 
     jobs = [...jobs, ...pageJobs];
   }
@@ -58,8 +30,33 @@ const getAllJobs = async pageCount => {
   return jobs;
 };
 
-const extractJobs = ($, jobsContainer, baseUrl) => {
+const getPageSelector = async page => {
+  const { url } = getUrl(page);
+  const html = await fetchHtml(url);
+
+  const $ = cheerio.load(html);
+
+  return $;
+};
+
+const getPagesCount = ($, amountPerPage) => {
+  const totalText = $('body')
+    .find('div.jobs-found > p')
+    .last()
+    .text();
+
+  const total = totalText.match(/\d+/)[0];
+  const pageCount = Math.ceil(total / amountPerPage);
+
+  return pageCount;
+};
+
+const extractJobs = ($, baseUrl) => {
   let jobs = [];
+
+  const jobsContainer = $('body').find(
+    'div.jobs-container > div.job > div.information'
+  );
 
   jobsContainer.each((index, element) => {
     const title = $(element)
@@ -127,5 +124,13 @@ const timeSwitch = (keyWord, time) =>
     horas: 0,
     hora: 0,
   }[keyWord]);
+
+const getUrl = (page = 1) => {
+  const baseUrl = 'https://www.geekhunter.com.br';
+  return {
+    baseUrl,
+    url: `${baseUrl}/vagas?workType=remoto&page=1&order=new&page=${page}`,
+  };
+};
 
 export { scrapData as scrapGeekhunterData };
