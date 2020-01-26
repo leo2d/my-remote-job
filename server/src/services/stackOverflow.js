@@ -1,32 +1,60 @@
 import cheerio from 'cheerio';
-import fetchHTML from './request';
+import fetchHtml from './request';
 import { formatToBRdate } from '../utils/dateFormater';
 
-const solveDate = createdAt => {
-  let date = new Date();
+const scrapData = async () => {
+  const $ = await getPageSelector();
 
-  if (createdAt === 'yesterday') {
-    date.setDate(date.getDate() - 1);
-  } else {
-    const match = createdAt.match(/(\d+).*([a-z])\s/);
+  const firstPageJobs = extractJobs($, getUrl().baseUrl);
 
-    const time = match[1];
-    const indicator = match[2];
+  const jobsPerPage = firstPageJobs.length;
 
-    if (indicator === 'd') {
-      date.setDate(date.getDate() - time);
-    }
-  }
+  const pagesCount = getPagesCount($, jobsPerPage);
 
-  return formatToBRdate(date);
+  const otherPagesJobs = await getAllJobs(2, pagesCount);
+
+  const jobs = [...firstPageJobs, ...otherPagesJobs];
+
+  return jobs;
 };
 
-const scrapData = async () => {
-  const html = await fetchHTML('https://stackoverflow.com/jobs?r=true&sort=p');
-
+const getAllJobs = async (pageStart = 1, pagesCount) => {
   let jobs = [];
+  const { baseUrl } = getUrl();
+
+  for (let page = pageStart; page <= pagesCount; page++) {
+    const pageSelector = await getPageSelector(page);
+    const pageJobs = extractJobs(pageSelector, baseUrl);
+
+    jobs = [...jobs, ...pageJobs];
+  }
+
+  return jobs;
+};
+
+const getPageSelector = async page => {
+  const { url } = getUrl(page);
+  const html = await fetchHtml(url);
 
   const $ = cheerio.load(html);
+
+  return $;
+};
+
+const getPagesCount = ($, amountPerPage) => {
+  const jobsAmountText = $('div#index-hed > div.js-search-title')
+    .find('span.description')
+    .first()
+    .text();
+
+  const total = jobsAmountText.match(/\d+/)[0];
+  const pageCount = Math.ceil(total / amountPerPage);
+
+  return pageCount;
+};
+
+const extractJobs = ($, baseUrl) => {
+  let jobs = [];
 
   const results = $('body')
     .find("div[class='listResults']")
@@ -37,11 +65,6 @@ const scrapData = async () => {
       .find('a.stretched-link')
       .text()
       .trim();
-
-    const link = `https://stackoverflow.com${$(element)
-      .find('a.stretched-link')
-      .attr('href')
-      .trim()}`;
 
     const company = $(element)
       .find('h3.fc-black-700')
@@ -54,6 +77,13 @@ const scrapData = async () => {
       .find('h3.fc-black-700 > span.fc-black-500')
       .text()
       .trim();
+
+    const jobPath = $(element)
+      .find('a.stretched-link')
+      .attr('href')
+      .trim();
+
+    const link = `${baseUrl}${jobPath}`;
 
     const createdAt = $(element)
       .find('div.mt2')
@@ -77,6 +107,34 @@ const scrapData = async () => {
   });
 
   return jobs;
+};
+
+const solveDate = createdAt => {
+  const match = createdAt.match(/(\d+).*([a-z])\s/);
+  const key = match ? match[2] : createdAt;
+  const time = match?.[1] || 0;
+
+  const daysToSub = timeSwitch(key, time);
+  const date = new Date();
+
+  date.setDate(date.getDate() - daysToSub);
+
+  return formatToBRdate(date);
+};
+
+const timeSwitch = (keyWord, time) =>
+  ({
+    h: 0,
+    d: time,
+    yesterday: 1,
+  }[keyWord]);
+
+const getUrl = (page = 1) => {
+  const baseUrl = 'https://stackoverflow.com/';
+  return {
+    baseUrl,
+    url: `${baseUrl}/jobs?r=true&sort=p&pg=${page}`,
+  };
 };
 
 export { scrapData as scrapStackoverflow };
