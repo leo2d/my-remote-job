@@ -5,7 +5,7 @@ import { formatToBRdate } from '../utils/dateFormater';
 const scrapData = async () => {
   const $ = await getPageSelector();
 
-  const firstPageJobs = extractJobs($);
+  const firstPageJobs = extractJobs($, getUrl().baseUrl);
 
   const jobsPerPage = firstPageJobs.length;
 
@@ -20,9 +20,11 @@ const scrapData = async () => {
 
 const getAllJobs = async (pageStart = 1, pagesCount) => {
   let jobs = [];
+  const { baseUrl } = getUrl();
+
   for (let page = pageStart; page <= pagesCount; page++) {
     const pageSelector = await getPageSelector(page);
-    const pageJobs = extractJobs(pageSelector, getUrl().baseUrl);
+    const pageJobs = extractJobs(pageSelector, baseUrl);
 
     jobs = [...jobs, ...pageJobs];
   }
