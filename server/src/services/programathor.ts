@@ -1,5 +1,6 @@
 import cheerio from 'cheerio';
 import fetchHTML from './request';
+import Job from '../job/job';
 
 const scrapData = async () => {
   const $ = await getPageSelector();
@@ -11,7 +12,7 @@ const scrapData = async () => {
   return firstPageJobs;
 };
 
-const getPageSelector = async (page = 1) => {
+const getPageSelector = async (page = 1): Promise<CheerioStatic> => {
   const { url } = getUrl(page);
   const html = await fetchHTML(url);
 
@@ -20,8 +21,8 @@ const getPageSelector = async (page = 1) => {
   return $;
 };
 
-const extractJobs = ($, baseUrl) => {
-  let jobs = [];
+const extractJobs = ($: CheerioStatic, baseUrl: string) => {
+  const jobs = Array<Job>();
 
   const jobsList = $('body')
     .find('div.wrapper-jobs-list > div.container > div.row')
@@ -57,7 +58,7 @@ const extractJobs = ($, baseUrl) => {
 
     const link = `${baseUrl}${jobRoute}`;
 
-    const job = {
+    const job: Job = {
       title,
       company,
       location,
