@@ -1,6 +1,8 @@
 import cheerio from 'cheerio';
 import fetchHtml from './request';
 import { formatToBRdate } from '../utils/dateFormater';
+import Job from '../job/job';
+import Dictionary from '../types/dictionary';
 
 const scrapData = async () => {
   const $ = await getPageSelector();
@@ -18,8 +20,8 @@ const scrapData = async () => {
   return jobs;
 };
 
-const getAllJobs = async (pageStart = 1, pagesCount) => {
-  let jobs = [];
+const getAllJobs = async (pageStart = 1, pagesCount: number) => {
+  let jobs = Array<Job>();
   const { baseUrl } = getUrl();
 
   for (let page = pageStart; page <= pagesCount; page++) {
@@ -32,7 +34,7 @@ const getAllJobs = async (pageStart = 1, pagesCount) => {
   return jobs;
 };
 
-const getPageSelector = async page => {
+const getPageSelector = async (page = 1) => {
   const { url } = getUrl(page);
   const html = await fetchHtml(url);
 
@@ -41,20 +43,20 @@ const getPageSelector = async page => {
   return $;
 };
 
-const getPagesCount = ($, amountPerPage) => {
+const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
   const totalText = $('body')
     .find('div.jobs-found > p')
     .last()
     .text();
 
-  const total = totalText.match(/\d+/)[0];
+  const total = parseInt(totalText.match(/\d+/)[0]);
   const pageCount = Math.ceil(total / amountPerPage);
 
   return pageCount;
 };
 
-const extractJobs = ($, baseUrl) => {
-  let jobs = [];
+const extractJobs = ($: CheerioStatic, baseUrl: string) => {
+  const jobs = Array<Job>();
 
   const jobsContainer = $('body').find(
     'div.jobs-container > div.job > div.information'
@@ -88,7 +90,7 @@ const extractJobs = ($, baseUrl) => {
 
     const link = `${baseUrl}${jobRoute}`;
 
-    const job = {
+    const job: Job = {
       title,
       company: '',
       location,
@@ -103,10 +105,10 @@ const extractJobs = ($, baseUrl) => {
   return jobs;
 };
 
-const solveDate = jobDateStr => {
-  const createdAt = jobDateStr.replace('ê', 'e');
+const solveDate = (jobDate: string) => {
+  const createdAt = jobDate.replace('ê', 'e');
   const match = createdAt.match(/(\d+)\s(\w+)\s/);
-  const time = match[1];
+  const time = parseInt(match[1]);
   const keyWord = match[2];
 
   const daysToSub = timeSwitch(keyWord, time) || 0;
@@ -117,15 +119,18 @@ const solveDate = jobDateStr => {
   return formatToBRdate(date);
 };
 
-const timeSwitch = (keyWord, time) =>
-  ({
+const timeSwitch = (key: string, time: number): number => {
+  const options: Dictionary = {
     meses: 30 * time,
     mes: 30,
     dias: time,
     dia: 1,
     horas: 0,
     hora: 0,
-  }[keyWord]);
+  };
+
+  return options[key] || 0;
+};
 
 const getUrl = (page = 1) => {
   const baseUrl = 'https://www.geekhunter.com.br';
