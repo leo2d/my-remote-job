@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import fetchHTML from './request';
 import Job from '../job/job';
+import fetchHTML from './request';
 
 const scrapData = async () => {
   const $ = await getPageSelector();

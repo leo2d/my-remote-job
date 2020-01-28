@@ -1,8 +1,8 @@
 import cheerio from 'cheerio';
-import fetchHtml from './request';
 import { formatToBRdate } from '../utils/dateFormater';
 import Job from '../job/job';
 import Dictionary from '../types/dictionary';
+import fetchHTML from './request';
 
 const scrapData = async () => {
   const $ = await getPageSelector();
@@ -36,7 +36,7 @@ const getAllJobs = async (pageStart = 1, pagesCount: number) => {
 
 const getPageSelector = async (page = 1) => {
   const { url } = getUrl(page);
-  const html = await fetchHtml(url);
+  const html = await fetchHTML(url);
 
   const $ = cheerio.load(html);
 

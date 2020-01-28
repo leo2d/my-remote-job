@@ -4,7 +4,7 @@ import { scrapStackoverflow } from '../services/stackOverflow';
 import { scrapGeekhunterData } from '../services/geekhunter';
 import { scrapProgramathor } from '../services/programathor';
 
-const routes = new Router();
+const routes: Router = Router();
 
 routes.get('/', async (req, res) => {
   const result = await scrapHipsters();
