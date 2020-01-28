@@ -1,6 +1,8 @@
 import cheerio from 'cheerio';
 import fetchHtml from './request';
 import { formatToBRdate } from '../utils/dateFormater';
+import Job from '../job/job';
+import Dictionary from '../types/dictionary';
 
 const scrapData = async () => {
   const $ = await getPageSelector();
@@ -18,8 +20,8 @@ const scrapData = async () => {
   return jobs;
 };
 
-const getAllJobs = async (pageStart = 1, pagesCount) => {
-  let jobs = [];
+const getAllJobs = async (pageStart = 1, pagesCount: number) => {
+  let jobs = Array<Job>();
   const { baseUrl } = getUrl();
 
   for (let page = pageStart; page <= pagesCount; page++) {
@@ -32,7 +34,7 @@ const getAllJobs = async (pageStart = 1, pagesCount) => {
   return jobs;
 };
 
-const getPageSelector = async page => {
+const getPageSelector = async (page = 1): Promise<CheerioStatic> => {
   const { url } = getUrl(page);
   const html = await fetchHtml(url);
 
@@ -41,20 +43,20 @@ const getPageSelector = async page => {
   return $;
 };
 
-const getPagesCount = ($, amountPerPage) => {
+const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
   const jobsAmountText = $('div#index-hed > div.js-search-title')
     .find('span.description')
     .first()
     .text();
 
-  const total = jobsAmountText.match(/\d+/)[0];
+  const total = parseInt(jobsAmountText.match(/\d+/)[0]);
   const pageCount = Math.ceil(total / amountPerPage);
 
   return pageCount;
 };
 
-const extractJobs = ($, baseUrl) => {
-  let jobs = [];
+const extractJobs = ($: CheerioStatic, baseUrl: string): Job[] => {
+  const jobs = Array<Job>();
 
   const results = $('body')
     .find("div[class='listResults']")
@@ -94,7 +96,7 @@ const extractJobs = ($, baseUrl) => {
 
     const date = solveDate(createdAt);
 
-    const job = {
+    const job: Job = {
       title,
       company,
       location,
@@ -109,10 +111,10 @@ const extractJobs = ($, baseUrl) => {
   return jobs;
 };
 
-const solveDate = createdAt => {
+const solveDate = (createdAt: string): string => {
   const match = createdAt.match(/(\d+).*([a-z])\s/);
   const key = match ? match[2] : createdAt;
-  const time = match?.[1] || 0;
+  const time = parseInt(match?.[1]) || 0;
 
   const daysToSub = timeSwitch(key, time);
   const date = new Date();
@@ -122,12 +124,15 @@ const solveDate = createdAt => {
   return formatToBRdate(date);
 };
 
-const timeSwitch = (keyWord, time) =>
-  ({
+const timeSwitch = (key: string, time: number): number => {
+  const options: Dictionary = {
     h: 0,
     d: time,
     yesterday: 1,
-  }[keyWord]);
+  };
+
+  return options[key] || 0;
+};
 
 const getUrl = (page = 1) => {
   const baseUrl = 'https://stackoverflow.com/';
