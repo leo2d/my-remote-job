@@ -1,5 +1,5 @@
 import express from 'express';
-import routes from './routes/routes';
+import routes from './web/routes/routes';
 
 const port = 3333;
 
