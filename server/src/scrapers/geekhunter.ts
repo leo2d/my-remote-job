@@ -1,8 +1,9 @@
 import cheerio from 'cheerio';
 import { formatToBRdate } from '../utils/dateFormater';
-import Job from '../shared/types/job';
+import ScrapedJob from '../shared/types/scrapedJob';
 import Dictionary from '../shared/types/dictionary';
 import fetchHTML from '../shared/fetchHtml';
+import Origin from '../shared/origin';
 
 const scrapData = async () => {
     const $ = await getPageSelector();
@@ -21,7 +22,7 @@ const scrapData = async () => {
 };
 
 const getAllJobs = async (pageStart = 1, pagesCount: number) => {
-    let jobs = Array<Job>();
+    let jobs = Array<ScrapedJob>();
     const { baseUrl } = getUrl();
 
     for (let page = pageStart; page <= pagesCount; page++) {
@@ -55,8 +56,10 @@ const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
     return pageCount;
 };
 
-const extractJobs = ($: CheerioStatic, baseUrl: string): Job[] => {
-    const jobs = Array<Job>();
+const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
+    const jobs = Array<ScrapedJob>();
+
+    const origin = Origin.geekhunter.id;
 
     const jobsContainer = $('body').find(
         'div.jobs-container > div.job > div.information'
@@ -90,13 +93,15 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): Job[] => {
 
         const link = `${baseUrl}${jobRoute}`;
 
-        const job: Job = {
+        const job: ScrapedJob = {
             title,
             company: '',
             location,
             date,
             employmentType: '',
             link,
+            description:'',
+            origin
         };
 
         jobs.push(job);

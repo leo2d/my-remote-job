@@ -4,6 +4,7 @@ import {
     scrapStackoverflow,
     scrapGeekhunterData,
     scrapProgramathor,
+    storeHisptersData,
 } from '../../services/scraperService';
 
 const getHipstersData = async (req: Request, res: Response) => {
@@ -46,7 +47,19 @@ const getProgramathorData = async (req: Request, res: Response) => {
     }
 };
 
+const storeTheHisptersData = async (req: Request, res: Response) => {
+    try {
+        console.log('ok we are in the controller');
+        const result = await storeHisptersData();
+
+        res.json({ ok: 'true', result });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export {
+    storeTheHisptersData,
     getHipstersData,
     getStackoverflowData,
     getGeekhunterData,
