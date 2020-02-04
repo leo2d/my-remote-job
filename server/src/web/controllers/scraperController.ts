@@ -5,6 +5,8 @@ import {
     scrapGeekhunterData,
     scrapProgramathor,
     storeHisptersData,
+    storeStackOverflowData,
+    storeGeekHunterData,
 } from '../../services/scraperService';
 
 const getHipstersData = async (req: Request, res: Response) => {
@@ -56,8 +58,28 @@ const storeTheHisptersData = async (req: Request, res: Response) => {
         console.log(error);
     }
 };
+const storeTheStackOverflowData = async (req: Request, res: Response) => {
+    try {
+        const result = await storeStackOverflowData();
+
+        res.json({ ok: 'true', result });
+    } catch (error) {
+        console.log(error);
+    }
+};
+const storeTheGeekHunterData = async (req: Request, res: Response) => {
+    try {
+        const result = await storeGeekHunterData();
+
+        res.json({ ok: 'true', result });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export {
+    storeTheGeekHunterData,
+    storeTheStackOverflowData,
     storeTheHisptersData,
     getHipstersData,
     getStackoverflowData,

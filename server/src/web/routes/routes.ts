@@ -6,6 +6,8 @@ import {
     getHipstersData,
     getStackoverflowData,
     storeTheHisptersData,
+    storeTheStackOverflowData,
+    storeTheGeekHunterData
 } from '../controllers/scraperController';
 import { getBySource } from '../controllers/jobController';
 
@@ -23,8 +25,10 @@ routes.get('/scraper/hipsters', getHipstersData);
 routes.patch('/scraper/hipsters', storeTheHisptersData);
 
 routes.get('/scraper/geekhunter', getGeekhunterData);
+routes.patch('/scraper/geekhunter', storeTheGeekHunterData);
 
 routes.get('/scraper/stackoverflow', getStackoverflowData);
+routes.patch('/scraper/stackoverflow', storeTheStackOverflowData);
 
 routes.get('/scraper/programathor', getProgramathorData);
 

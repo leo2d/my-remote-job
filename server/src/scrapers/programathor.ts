@@ -68,7 +68,7 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
             date: '',
             employmentType,
             link,
-            description: '',
+            description: 'test',
             sourceId,
         };
 
