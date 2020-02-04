@@ -29,6 +29,6 @@ routes.get('/scraper/stackoverflow', getStackoverflowData);
 routes.get('/scraper/programathor', getProgramathorData);
 
 //job
-routes.get('/job', getByOriginName);
+routes.get('/jobs/*', getByOriginName);
 
 export default routes;

@@ -1,11 +1,11 @@
 import { Response, Request, NextFunction } from 'express';
 
 import { getByOrigin } from '../../services/jobService';
-import Origin from '../../shared/origin';
 
 const getByOriginName = async (req: Request, res: Response) => {
     try {
-        const result = await getByOrigin(Origin.hipsters.id);
+        const sourceId = req.params[0];
+        const result = await getByOrigin(sourceId);
 
         res.json(result);
     } catch (error) {
