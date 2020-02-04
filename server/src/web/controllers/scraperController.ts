@@ -49,7 +49,6 @@ const getProgramathorData = async (req: Request, res: Response) => {
 
 const storeTheHisptersData = async (req: Request, res: Response) => {
     try {
-        console.log('ok we are in the controller');
         const result = await storeHisptersData();
 
         res.json({ ok: 'true', result });

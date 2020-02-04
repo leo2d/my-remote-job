@@ -1,8 +1,8 @@
 import Job from '../models/job';
 
-const getByOrigin = async (origin: string) => {
+const getBySourceId = async (sourceId: string) => {
     try {
-        const jobs = await Job.find({ origin }, (err, res) => {
+        const jobs = await Job.find({ sourceId }, (err, res) => {
             if (err) console.log(`ERROR : ${err}`);
             return res;
         });
@@ -13,4 +13,4 @@ const getByOrigin = async (origin: string) => {
     }
 };
 
-export { getByOrigin };
+export { getBySourceId };

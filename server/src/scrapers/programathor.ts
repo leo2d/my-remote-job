@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
 import ScrapedJob from '../shared/types/scrapedJob';
 import fetchHTML from '../shared/fetchHtml';
-import Origin from '../shared/origin';
+import Source from '../shared/source';
 
 const scrapData = async () => {
     const $ = await getPageSelector();
@@ -25,8 +25,7 @@ const getPageSelector = async (page = 1): Promise<CheerioStatic> => {
 const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
     const jobs = Array<ScrapedJob>();
 
-    const origin = Origin.programathor.id;
-
+    const sourceId = Source.programathor.id;
 
     const jobsList = $('body')
         .find('div.wrapper-jobs-list > div.container > div.row')
@@ -70,7 +69,7 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
             employmentType,
             link,
             description: '',
-            origin
+            sourceId,
         };
 
         jobs.push(job);

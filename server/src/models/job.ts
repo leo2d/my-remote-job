@@ -10,7 +10,7 @@ interface IJob extends ScrapedJob, Document {
 const jobSchema: Schema = new Schema({
     foundAt: { type: Date, required: true, default: Date.now() },
     isActive: { type: Boolean, required: true, default: true },
-    origin: { type: String, required: true },
+    sourceId: { type: String, required: true },
 
     title: { type: String, required: true },
     link: { type: String, required: true },

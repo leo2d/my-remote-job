@@ -10,5 +10,5 @@ export default interface ScrapedJob {
     companyDetails?: string;
     salaryRange?: string;
     skills?: string[];
-    origin: string;
+    sourceId: string;
 }

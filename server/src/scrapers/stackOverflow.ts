@@ -3,7 +3,7 @@ import fetchHtml from '../shared/fetchHtml';
 import { formatToBRdate } from '../utils/dateFormater';
 import ScrapedJob from '../shared/types/scrapedJob';
 import Dictionary from '../shared/types/dictionary';
-import Origin from '../shared/origin';
+import Source from '../shared/source';
 
 const scrapData = async () => {
     const $ = await getPageSelector();
@@ -59,7 +59,7 @@ const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
 const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
     const jobs = Array<ScrapedJob>();
 
-    const origin = Origin.stackOverflow.id;
+    const sourceId = Source.stackOverflow.id;
 
     const results = $('body')
         .find("div[class='listResults']")
@@ -107,7 +107,7 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
             employmentType: '',
             link,
             description: '',
-            origin
+            sourceId,
         };
 
         jobs.push(job);

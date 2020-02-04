@@ -7,7 +7,7 @@ import {
     getStackoverflowData,
     storeTheHisptersData,
 } from '../controllers/scraperController';
-import { getByOriginName } from '../controllers/jobController';
+import { getBySource } from '../controllers/jobController';
 
 const routes: Router = Router();
 
@@ -29,6 +29,6 @@ routes.get('/scraper/stackoverflow', getStackoverflowData);
 routes.get('/scraper/programathor', getProgramathorData);
 
 //job
-routes.get('/jobs/*', getByOriginName);
+routes.get('/jobs/*', getBySource);
 
 export default routes;

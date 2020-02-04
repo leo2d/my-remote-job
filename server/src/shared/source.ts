@@ -1,4 +1,4 @@
-const Origin = {
+const Source = {
     hipsters: {
         id: 'b86d0e38-d142-46b9-82a4-51cb959ff46d',
         description: 'Hipsters Jobs',
@@ -17,4 +17,4 @@ const Origin = {
     },
 };
 
-export default Origin;
+export default Source;
