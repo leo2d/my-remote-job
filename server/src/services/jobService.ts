@@ -13,4 +13,17 @@ const getBySourceId = async (sourceId: string) => {
     }
 };
 
-export { getBySourceId };
+const getByJobId = async (id: string) => {
+    try {
+        const job = await Job.findById(id, (err, res) => {
+            if (err) console.log(`ERROR : ${err}`);
+            return res;
+        });
+
+        return job;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export { getBySourceId, getByJobId };

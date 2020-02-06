@@ -7,9 +7,14 @@ import {
     getStackoverflowData,
     storeTheHisptersData,
     storeTheStackOverflowData,
-    storeTheGeekHunterData
+    storeTheGeekHunterData,
 } from '../controllers/scraperController';
-import { getBySource } from '../controllers/jobController';
+import {
+    getGeekHunterJobs,
+    getHipstersJobs,
+    getStackOverflowJobs,
+    getJobById,
+} from '../controllers/jobController';
 
 const routes: Router = Router();
 
@@ -33,6 +38,10 @@ routes.patch('/scraper/stackoverflow', storeTheStackOverflowData);
 routes.get('/scraper/programathor', getProgramathorData);
 
 //job
-routes.get('/jobs/*', getBySource);
+routes.get('/jobs/stackoverflow', getStackOverflowJobs);
+routes.get('/jobs/geekhunter', getGeekHunterJobs);
+routes.get('/jobs/hipsters', getHipstersJobs);
+
+routes.get('/jobs/*', getJobById);
 
 export default routes;
