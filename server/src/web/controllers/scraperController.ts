@@ -2,7 +2,7 @@ import { Response, Request, NextFunction } from 'express';
 import {
     scrapHipsters,
     scrapStackoverflow,
-    scrapGeekhunterData,
+    scrapGeekhunter,
     scrapProgramathor,
     storeHisptersData,
     storeStackOverflowData,
@@ -31,7 +31,7 @@ const getStackoverflowData = async (req: Request, res: Response) => {
 
 const getGeekhunterData = async (req: Request, res: Response) => {
     try {
-        const result = await scrapGeekhunterData();
+        const result = await scrapGeekhunter();
 
         res.json(result);
     } catch (error) {

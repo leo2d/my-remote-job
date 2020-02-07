@@ -145,4 +145,4 @@ const getUrl = (page = 1) => {
     };
 };
 
-export { scrapData as scrapGeekhunterData };
+export { scrapData as scrapGeekhunter };

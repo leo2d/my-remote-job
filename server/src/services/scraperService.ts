@@ -1,6 +1,6 @@
 import { scrapHipsters } from '../scrapers/hipsters';
 import { scrapStackoverflow } from '../scrapers/stackOverflow';
-import { scrapGeekhunterData } from '../scrapers/geekhunter';
+import { scrapGeekhunter } from '../scrapers/geekhunter';
 import { scrapProgramathor } from '../scrapers/programathor';
 import Job from '../models/job';
 import ScrapedJob from '../shared/types/scrapedJob';
@@ -44,7 +44,7 @@ export {
     storeGeekHunterData,
     storeStackOverflowData,
     storeHisptersData,
-    scrapGeekhunterData,
+    scrapGeekhunter,
     scrapHipsters,
     scrapProgramathor,
     scrapStackoverflow,
