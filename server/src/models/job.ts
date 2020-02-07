@@ -2,7 +2,7 @@ import mongoose from '../data/database/mongoose';
 import ScrapedJob from '../shared/types/scrapedJob';
 import { Document, Model, model, Types, Schema, Query } from 'mongoose';
 
-interface IJob extends ScrapedJob, Document {
+export interface JobModel extends ScrapedJob, Document {
     foundAt: Date;
     isActive: boolean;
 }
@@ -26,6 +26,6 @@ const jobSchema: Schema = new Schema({
 
 const collectionName = 'jobs';
 
-const Job = mongoose.model<IJob>(collectionName, jobSchema);
+const Job = mongoose.model<JobModel>(collectionName, jobSchema);
 
 export default Job;
