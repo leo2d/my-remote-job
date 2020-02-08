@@ -7,6 +7,9 @@ import {
     createHisptersData,
     createGeekHunterData,
     createStackOverflowData,
+    updateGeekHunterData,
+    updateHipstersData,
+    updateStackoverflowData,
 } from '../../services/scraperService';
 
 const getHipestersScrapedData = async (req: Request, res: Response) => {
@@ -36,6 +39,7 @@ const getGeekhunterScrapedData = async (req: Request, res: Response) => {
         console.log(error);
     }
 };
+// Programathor is in progress
 const getProgramathorScrapedData = async (req: Request, res: Response) => {
     try {
         const result = await scrapProgramathor();
@@ -74,25 +78,29 @@ const createGeekHunter = async (req: Request, res: Response) => {
     }
 };
 
-        res.json({ ok: 'true', result });
+const updateHipsters = async (req: Request, res: Response) => {
+    try {
+        await updateHipstersData();
+
+        res.json({ ok: 'true' });
     } catch (error) {
         console.log(error);
     }
 };
-const storeTheStackOverflowData = async (req: Request, res: Response) => {
+const updateStackOverflow = async (req: Request, res: Response) => {
     try {
-        const result = await storeStackOverflowData();
+        await updateStackoverflowData();
 
-        res.json({ ok: 'true', result });
+        res.json({ ok: 'true' });
     } catch (error) {
         console.log(error);
     }
 };
-const storeTheGeekHunterData = async (req: Request, res: Response) => {
+const updateGeekHunter = async (req: Request, res: Response) => {
     try {
-        const result = await storeGeekHunterData();
+        await updateGeekHunterData();
 
-        res.json({ ok: 'true', result });
+        res.json({ ok: 'true' });
     } catch (error) {
         console.log(error);
     }
@@ -102,6 +110,9 @@ export {
     createGeekHunter,
     createStackOverflow,
     createHipsters,
+    updateGeekHunter,
+    updateHipsters,
+    updateStackOverflow,
     getHipestersScrapedData,
     getStackoverflowScrapedData,
     getGeekhunterScrapedData,

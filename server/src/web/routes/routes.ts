@@ -1,13 +1,16 @@
 import { Router, Response, Request, NextFunction } from 'express';
 
 import {
-    getGeekhunterData,
-    getProgramathorData,
-    getHipstersData,
-    getStackoverflowData,
-    storeTheHisptersData,
-    storeTheStackOverflowData,
-    storeTheGeekHunterData,
+    getGeekhunterScrapedData,
+    getHipestersScrapedData,
+    getStackoverflowScrapedData,
+    getProgramathorScrapedData,
+    createGeekHunter,
+    createHipsters,
+    createStackOverflow,
+    updateGeekHunter,
+    updateHipsters,
+    updateStackOverflow,
 } from '../controllers/scraperController';
 import {
     getGeekHunterJobs,
@@ -25,17 +28,19 @@ routes.get('/', async (req, res) => {
 });
 
 //scraper
-routes.get('/scraper/hipsters', getHipstersData);
+routes.get('/scraper/hipsters', getHipestersScrapedData);
+routes.post('/scraper/hipsters', createHipsters);
+routes.put('/scraper/hipsters', updateHipsters);
 
-routes.patch('/scraper/hipsters', storeTheHisptersData);
+routes.get('/scraper/geekhunter', getGeekhunterScrapedData);
+routes.post('/scraper/geekhunter', createGeekHunter);
+routes.put('/scraper/geekhunter', updateGeekHunter);
 
-routes.get('/scraper/geekhunter', getGeekhunterData);
-routes.patch('/scraper/geekhunter', storeTheGeekHunterData);
+routes.get('/scraper/stackoverflow', getStackoverflowScrapedData);
+routes.post('/scraper/stackoverflow', createStackOverflow);
+routes.put('/scraper/stackoverflow', updateStackOverflow);
 
-routes.get('/scraper/stackoverflow', getStackoverflowData);
-routes.patch('/scraper/stackoverflow', storeTheStackOverflowData);
-
-routes.get('/scraper/programathor', getProgramathorData);
+routes.get('/scraper/programathor', getProgramathorScrapedData);
 
 //job
 routes.get('/jobs/stackoverflow', getStackOverflowJobs);
