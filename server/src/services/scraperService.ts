@@ -6,12 +6,15 @@ import Job, { JobModel } from '../models/job';
 import ScrapedJob from '../shared/types/scrapedJob';
 import { throws } from 'assert';
 
-const getJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
+const getActiveJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
     try {
-        const jobs = await Job.find({ link: { $in: links } }, (err, res) => {
-            if (err) console.log(`ERROR : ${err}`);
-            return res;
-        });
+        const jobs = await Job.find(
+            { link: { $in: links, isActive: true } },
+            (err, res) => {
+                if (err) console.log(`ERROR : ${err}`);
+                return res;
+            }
+        );
 
         return jobs;
     } catch (error) {
@@ -47,7 +50,7 @@ const disableJobs = async (jobs: JobModel[]): Promise<any> => {
 const updateJobs = async (jobs: ScrapedJob[]) => {
     try {
         const scrapedlinks = jobs.map(job => job.link);
-        const existingJobs = await getJobsByLinks(scrapedlinks);
+        const existingJobs = await getActiveJobsByLinks(scrapedlinks);
 
         const newjobs = jobs.filter(
             job => !existingJobs.some(dbJob => dbJob.link === job.link)
@@ -65,7 +68,6 @@ const updateJobs = async (jobs: ScrapedJob[]) => {
         console.log(error);
     }
 };
-
 
 const createHisptersData = async () => {
     const jobs = await scrapHipsters();
