@@ -3,7 +3,6 @@
   "ignore": [".git", "node_modules/**/node_modules"],
   "verbose": true,
   "execMap": {
-    "js": "sucrase-node",
     "ts": "node --require ts-node/register"
   },
   "watch": ["src/"],
