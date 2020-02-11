@@ -3,6 +3,7 @@
         "allowJs": false,
         "module": "commonjs",
         "esModuleInterop": true,
+        "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "target": "es6",
         "noImplicitAny": true,
