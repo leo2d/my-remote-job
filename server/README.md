@@ -40,7 +40,7 @@ This project use some popular libraries:
         ```
 4. Finally you can run __yarn dev:debug__ or __npm dev:debug__ to run in debug mode or just __yarn start__ or __npm start__ to start the application
 5. Optional: Change the app port
-    1. For default this app will runs at port `3333` but you can change editting the value of the variable `port` in the **app.ts** file in src/app.ts 
+    1. For default this app will runs at port `3333` but you can change editting the value of the variable `port` in the **app.ts** file in src/app.ts  
         For example: 
         ```javascript
 
