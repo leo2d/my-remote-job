@@ -19,5 +19,5 @@ For now, the supported sites are:
 #### Note:
 These sources offer many job opportunities, but "My Remote Job" accepts _*remote*_  jobs only.
 
-At the current stage, the Scrapers and the data update with MongoDB are working well. In the next steps, I will put an interface with React and a mobile application with native React.
+At the current stage, the Scrapers and the data update with MongoDB are working well. In the next steps, I will put an interface/ client side.
 
