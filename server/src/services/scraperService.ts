@@ -9,7 +9,7 @@ import { throws } from 'assert';
 const getActiveJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
     try {
         const jobs = await Job.find(
-            { link: { $in: links, isActive: true } },
+            { link: { $in: links }, isActive: true },
             (err, res) => {
                 if (err) console.log(`ERROR : ${err}`);
                 return res;
