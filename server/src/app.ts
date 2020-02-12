@@ -1,5 +1,5 @@
 import express from 'express';
-import routes from './web/routes/routes';
+import routes from './web/routes';
 
 import swaggerUi from 'swagger-ui-express';
 import * as swaggerDoc from './swaggerDoc.json';

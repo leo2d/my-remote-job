@@ -35,7 +35,7 @@ const getStackOverflowJobs = async (req: Request, res: Response) => {
 
 const getJobById = async (req: Request, res: Response) => {
     try {
-        const jobId = req.params[0];
+        const jobId = req.params.id;
 
         const result = await getByJobId(jobId);
 
