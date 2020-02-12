@@ -32,6 +32,8 @@ const storeJobs = async (jobs: ScrapedJob[]): Promise<any> => {
 
 const disableJobs = async (jobs: JobModel[]): Promise<any> => {
     try {
+        if (!jobs) throw "Argument Exception: 'jobs' is not valid";
+
         const ids = jobs.map(x => x._id);
 
         await Job.updateMany(
@@ -52,18 +54,22 @@ const updateJobs = async (jobs: ScrapedJob[]) => {
         const scrapedlinks = jobs.map(job => job.link);
         const existingJobs = await getActiveJobsByLinks(scrapedlinks);
 
-        const newjobs = jobs.filter(
-            job => !existingJobs.some(dbJob => dbJob.link === job.link)
-        );
+        if (existingJobs) {
+            const newjobs = jobs.filter(
+                job => !existingJobs.some(dbJob => dbJob.link === job.link)
+            );
 
-        const unavailableJobs = existingJobs.filter(
-            dbJob => !jobs.some(job => job.link === dbJob.link)
-        );
+            const unavailableJobs = existingJobs.filter(
+                dbJob => !jobs.some(job => job.link === dbJob.link)
+            );
 
-        await Promise.all([
-            storeJobs(newjobs),
-            disableJobs(unavailableJobs),
-        ]).catch(error => throws(error));
+            await Promise.all([
+                storeJobs(newjobs),
+                disableJobs(unavailableJobs),
+            ]).catch(error => throws(error));
+        } else {
+            await storeJobs(jobs);
+        }
     } catch (error) {
         console.log(error);
     }

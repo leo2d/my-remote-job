@@ -5,7 +5,7 @@ const getBySourceId = async (sourceId: string) => {
         const jobs = await Job.find({ sourceId }, (err, res) => {
             if (err) console.log(`ERROR : ${err}`);
             return res;
-        });
+        }).sort({ foundAt: -1 });
 
         return jobs;
     } catch (error) {
@@ -26,4 +26,17 @@ const getByJobId = async (id: string) => {
     }
 };
 
-export { getBySourceId, getByJobId };
+const getAllActiveJobs = async () => {
+    try {
+        const jobs = await Job.find({ isActive: true }, (err, res) => {
+            if (err) console.log(`ERROR : ${err}`);
+            return res;
+        }).sort({ foundAt: -1 });
+
+        return jobs;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export { getBySourceId, getByJobId, getAllActiveJobs };
