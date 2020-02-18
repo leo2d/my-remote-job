@@ -19,7 +19,9 @@ const InputContainer = styled.div`
     width: 100%;
 `;
 
-const SearchTextInput = styled.input.attrs(props => (props.type = 'text'))`
+const SearchTextInput = styled.input.attrs(props => ({
+    type: 'text',
+}))`
     display: flex;
     height: 50px;
     width: 100%;
