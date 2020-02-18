@@ -15,7 +15,7 @@ const HeaderSearch: React.FC = () => {
         <Container>
             <HeaderSearchForm>
                 <InputContainer>
-                    <SearchTextInput placeholder="Search for job or company" />
+                    <SearchTextInput placeholder="Search by job or company name" />
                 </InputContainer>
                 <SearchIconContainer>
                     <SearchIcon src={SearchImg} />
