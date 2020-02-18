@@ -1,12 +1,14 @@
 import React from 'react';
-import Hello from './pages';
+import Home from './pages/Home';
+import { GlobalStyle } from './styles/global-style';
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <Hello text="Hi There!" />
-            <Hello text="This project is in progress" />
-        </div>
+        <GlobalStyle>
+            <div className="App">
+                <Home text="Hi There!" />
+            </div>
+        </GlobalStyle>
     );
 };
 
