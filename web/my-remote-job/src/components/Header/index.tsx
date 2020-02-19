@@ -1,6 +1,13 @@
 import React from 'react';
 import LogoImg from '../../assets/images/logo.svg';
-import { HeaderContainer, Container, LogoContainer, Logo, HeaderLinksContainer } from './styles';
+import {
+    HeaderContainer,
+    Container,
+    LogoContainer,
+    Logo,
+    HeaderLinksContainer,
+    HeaderLink,
+} from './styles';
 import HeaderSearch from '../HeaderSearch';
 
 const Header: React.FC = _ => {
@@ -12,7 +19,7 @@ const Header: React.FC = _ => {
                 </LogoContainer>
                 <HeaderSearch />
                 <HeaderLinksContainer>
-
+                    <HeaderLink href="/#">Click here</HeaderLink>
                 </HeaderLinksContainer>
             </Container>
         </HeaderContainer>

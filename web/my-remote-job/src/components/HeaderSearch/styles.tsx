@@ -5,6 +5,15 @@ const Container = styled.div`
     flex: 1;
     max-width: 450px;
     min-width: 370px;
+
+    padding: 0 9px 0 17px;
+    justify-content: center;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+
+    div {
+        display: block;
+    }
 `;
 
 const HeaderSearchForm = styled.form`
@@ -35,6 +44,57 @@ const SearchTextInput = styled.input.attrs(props => ({
     border-radius: 4px;
 `;
 
+const EraseIconContainer = styled.span`
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    position: relative;
+
+    padding: 0;
+
+    background: #ea1d2c;
+    color: #f2d298;
+    border-radius: 100%;
+    /* border: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 5px;
+
+    outline: none;
+    transition: 100ms;
+    position: relative;
+    overflow: hidden; */
+`;
+
+// interface EraseProps {
+//     visible: boolean;
+// }
+// const EraseIcon = styled.img.attrs(props => ({
+//     visibility: props.visible ? 'show' : 'hidden',
+// }))`
+
+const EraseIcon = styled.img`
+    visibility: hidden;
+    border-radius: inherit;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+`;
+
+const SearchEraseButton = styled.button`
+    color: #a6a29f;
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+`;
+
 const SearchIconContainer = styled.span`
     position: absolute;
     left: 20px;
@@ -58,4 +118,7 @@ export {
     SearchTextInput,
     SearchIconContainer,
     SearchIcon,
+    SearchEraseButton,
+    EraseIconContainer,
+    EraseIcon,
 };

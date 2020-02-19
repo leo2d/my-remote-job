@@ -8,6 +8,9 @@ import {
     SearchTextInput,
     SearchIconContainer,
     SearchIcon,
+    SearchEraseButton,
+    EraseIconContainer,
+    EraseIcon
 } from './styles';
 
 const HeaderSearch: React.FC = () => {
@@ -16,6 +19,11 @@ const HeaderSearch: React.FC = () => {
             <HeaderSearchForm>
                 <InputContainer>
                     <SearchTextInput placeholder="Search by job or company name" />
+                    <SearchEraseButton>
+                        <EraseIconContainer>
+                            <EraseIcon/>
+                        </EraseIconContainer>
+                    </SearchEraseButton>
                 </InputContainer>
                 <SearchIconContainer>
                     <SearchIcon src={SearchImg} />

@@ -29,13 +29,24 @@ const LogoContainer = styled.div`
     display: flex;
     align-items: center;
     cursor: pointer;
+    padding:0 0 5px 0;
 `;
-
-const HeaderLinksContainer = styled.div``;
 
 const Logo = styled.img`
     width: 50%;
     height: 50%;
+`;
+
+const HeaderLinksContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 220px 0px 150px;
+`;
+
+const HeaderLink = styled.a`
+    text-decoration: none;
+    color:#565
 `;
 
 export {
@@ -44,4 +55,5 @@ export {
     Logo,
     LogoContainer,
     HeaderLinksContainer,
+    HeaderLink
 };
