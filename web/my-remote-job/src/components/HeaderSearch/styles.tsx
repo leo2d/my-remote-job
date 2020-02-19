@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface visibleProps {
+    visible: boolean;
+}
+
 const Container = styled.div`
     width: 100%;
     flex: 1;
@@ -56,8 +60,8 @@ const EraseIconContainer = styled.span`
     border-radius: 100%;
 `;
 
-const EraseIcon = styled.img`
-    visibility: hidden;
+const EraseIcon = styled.img<visibleProps>`
+    visibility: ${p => (p.visible ? 'visible' : 'hidden')};
     border-radius: inherit;
     height: 100%;
     left: 0px;
@@ -66,7 +70,7 @@ const EraseIcon = styled.img`
     width: 100%;
 `;
 
-const SearchEraseButton = styled.button`
+const EraseButton = styled.button.attrs(props => ({ type: 'button' }))`
     color: #a6a29f;
     background: transparent;
     border: none;
@@ -99,7 +103,7 @@ export {
     SearchTextInput,
     SearchIconContainer,
     SearchIcon,
-    SearchEraseButton,
+    EraseButton,
     EraseIconContainer,
     EraseIcon,
 };
