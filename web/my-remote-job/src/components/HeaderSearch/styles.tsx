@@ -60,17 +60,20 @@ const EraseIconContainer = styled.span`
     border-radius: 100%;
 `;
 
-const EraseIcon = styled.img<visibleProps>`
-    visibility: ${p => (p.visible ? 'visible' : 'hidden')};
-    border-radius: inherit;
+const EraseIcon = styled.img`
     height: 100%;
     left: 0px;
     position: absolute;
     top: 0px;
     width: 100%;
+    border-radius: inherit;
 `;
 
-const EraseButton = styled.button.attrs(props => ({ type: 'button' }))`
+const EraseButton = styled.button.attrs(props => ({ type: 'button' }))<
+    visibleProps
+>`
+    visibility: ${p => (p.visible ? 'visible' : 'hidden')};
+
     color: #a6a29f;
     background: transparent;
     border: none;

@@ -20,9 +20,9 @@ const HeaderSearch: React.FC = () => {
             <HeaderSearchForm>
                 <InputContainer>
                     <SearchTextInput placeholder="Search by job or company name" />
-                    <EraseButton onClick={() => console.log('erase clicked')}>
+                    <EraseButton onClick={() => console.log('erase clicked')} visible={true}  >
                         <EraseIconContainer>
-                            <EraseIcon src={EraseImg} visible={false} />
+                            <EraseIcon src={EraseImg}/>
                         </EraseIconContainer>
                     </EraseButton>
                 </InputContainer>
