@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SearchImg from '../../assets/images/search.svg';
+import EraseImg from '../../assets/images/erase.svg';
 import {
     Container,
     HeaderSearchForm,
@@ -10,7 +11,7 @@ import {
     SearchIcon,
     SearchEraseButton,
     EraseIconContainer,
-    EraseIcon
+    EraseIcon,
 } from './styles';
 
 const HeaderSearch: React.FC = () => {
@@ -21,7 +22,7 @@ const HeaderSearch: React.FC = () => {
                     <SearchTextInput placeholder="Search by job or company name" />
                     <SearchEraseButton>
                         <EraseIconContainer>
-                            <EraseIcon/>
+                            <EraseIcon src={EraseImg} />
                         </EraseIconContainer>
                     </SearchEraseButton>
                 </InputContainer>

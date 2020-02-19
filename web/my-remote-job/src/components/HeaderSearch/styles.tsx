@@ -12,7 +12,9 @@ const Container = styled.div`
     transform: translateX(0);
 
     div {
-        display: block;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
     }
 `;
 
@@ -51,28 +53,8 @@ const EraseIconContainer = styled.span`
     position: relative;
 
     padding: 0;
-
-    background: #ea1d2c;
-    color: #f2d298;
     border-radius: 100%;
-    /* border: none;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 3px 5px;
-
-    outline: none;
-    transition: 100ms;
-    position: relative;
-    overflow: hidden; */
 `;
-
-// interface EraseProps {
-//     visible: boolean;
-// }
-// const EraseIcon = styled.img.attrs(props => ({
-//     visibility: props.visible ? 'show' : 'hidden',
-// }))`
 
 const EraseIcon = styled.img`
     visibility: hidden;
@@ -92,7 +74,6 @@ const SearchEraseButton = styled.button`
     padding: 10px;
     position: absolute;
     right: 0;
-    top: 50%;
 `;
 
 const SearchIconContainer = styled.span`
