@@ -6,7 +6,7 @@ const App: React.FC = () => {
     return (
         <GlobalStyle>
             <div className="App">
-                <Home text="Hi There!" />
+                <Home/>
             </div>
         </GlobalStyle>
     );

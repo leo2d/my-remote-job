@@ -10,4 +10,8 @@ const Container = styled.div`
     background-color: #549;
 `;
 
-export { Title, Container };
+const JobsContianer = styled.div`
+    padding: 20px;
+`;
+
+export { Title, Container, JobsContianer };
