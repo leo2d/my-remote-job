@@ -14,7 +14,7 @@ const Home: React.FC = () => {
             const response = await Api.get(`/jobs`);
             console.log(response);
             if (response.data) {
-                setJobs(response.data);
+                setJobs(response.data.jobs);
             }
         }
 

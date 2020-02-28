@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Colors from '../../styles/colors';
 
 const Container = styled.div`
-    height: 130px;
+    height: 200px;
     grid-template-columns: 85px 1px 1fr;
     grid-column-gap: 20px;
     padding: 20px;
@@ -10,44 +10,38 @@ const Container = styled.div`
     border-radius: 6px;
     text-decoration: none;
     width: 100%;
-    grid-template-areas:
-        'figure divider title'
-        'figure divider content';
-    box-sizing: border-box;
+
     background-color: ${Colors.dracula.Background};
     border: 2px solid ${Colors.dracula.Selection};
 `;
 
 const JobImageContainer = styled.div``;
 const JobInfoContainer = styled.div`
-    display: flex;
-
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
+    display: grid;
+    grid-auto-columns: 260px;
 
     span {
-        white-space: nowrap;
+        white-space: normal;
+        word-wrap:break-word;
+        word-break:break-all;
     }
 `;
 const JobTitleContainer = styled.div`
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr auto;
+    padding-bottom: 5px;
     position: relative;
-
-
 `;
 const JobTitle = styled.span`
     color: ${Colors.dracula.Green};
 
     font-size: 16px;
-    line-height: 1em;
-    height:2em;
+    /* line-height: 1em; */
+    /* height:2em; */
     font-weight: 500;
-    white-space: nowrap!important;
+    
     text-overflow: ellipsis;
-    display: block;
+    
 
 `;
 const JobImg = styled.img``;
@@ -63,6 +57,8 @@ const JobSource = styled.div``;
 
 const JobCardFooter = styled.div`
     color: ${Colors.dracula.Purple};
+    display: grid;
+    justify-items:end;
 `;
 
 export {
