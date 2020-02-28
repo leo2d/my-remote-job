@@ -1,5 +1,5 @@
 export default interface jobListItem {
-    id: string;
+    _id: string;
     title: string;
     company?: string;
     location?: string;
