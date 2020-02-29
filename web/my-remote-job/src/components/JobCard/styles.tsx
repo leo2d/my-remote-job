@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Colors from '../../styles/colors';
 
-const Container = styled.div`
+const Container = styled.a`
     height: 200px;
     grid-template-columns: 85px 1px 1fr;
     grid-column-gap: 20px;
@@ -13,17 +13,23 @@ const Container = styled.div`
 
     background-color: ${Colors.dracula.Background};
     border: 2px solid ${Colors.dracula.Selection};
+
+    a :hover{
+        /* cursor: pointer; */
+    }
 `;
 
-const JobImageContainer = styled.div``;
+const JobImageContainer = styled.div`
+    height: 80px;
+`;
 const JobInfoContainer = styled.div`
     display: grid;
     grid-auto-columns: 260px;
 
     span {
         white-space: normal;
-        word-wrap:break-word;
-        word-break:break-all;
+        word-wrap: break-word;
+        word-break: break-all;
     }
 `;
 const JobTitleContainer = styled.div`
@@ -36,15 +42,17 @@ const JobTitle = styled.span`
     color: ${Colors.dracula.Green};
 
     font-size: 16px;
-    /* line-height: 1em; */
-    /* height:2em; */
     font-weight: 500;
-    
-    text-overflow: ellipsis;
-    
 
+    text-overflow: ellipsis;
 `;
-const JobImg = styled.img``;
+const JobImg = styled.img`
+    background-color: ${Colors.dracula.Background};
+    border: 2px solid ${Colors.dracula.CurrentLine};
+    border-radius: 4px;
+    width: 80px;
+    height: 80px;
+`;
 const JobLocation = styled.span`
     color: ${Colors.dracula.Cyan};
 
@@ -53,12 +61,19 @@ const JobLocation = styled.span`
 const JobCompany = styled.span`
     color: ${Colors.dracula.Orange};
 `;
-const JobSource = styled.div``;
+const JobSourceInfo = styled.div`
+    small {
+        padding: 4px;
+        border-radius: 4px;
+        background-color: ${Colors.dracula.CurrentLine};
+        color: ${Colors.dracula.Pink};
+    }
+`;
 
 const JobCardFooter = styled.div`
     color: ${Colors.dracula.Purple};
     display: grid;
-    justify-items:end;
+    justify-items: stretch;
 `;
 
 export {
@@ -69,7 +84,7 @@ export {
     JobImg,
     JobLocation,
     JobCardFooter,
-    JobSource,
+    JobSourceInfo,
     JobInfoContainer,
     JobImageContainer,
 };

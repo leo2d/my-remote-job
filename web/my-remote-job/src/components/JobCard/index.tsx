@@ -9,7 +9,7 @@ import {
     JobLocation,
     JobCompany,
     JobCardFooter,
-    JobSource,
+    JobSourceInfo,
     JobInfoContainer,
     JobImageContainer,
 } from './styles';
@@ -20,9 +20,9 @@ interface jobCardProps {
 
 const JobCard: React.FC<jobCardProps> = ({ job }) => {
     return (
-        <Container>
+        <Container href={'#'}>
             <JobImageContainer>
-                <JobImg src={''} />
+                <JobImg src={job.job_avatar || ''} />
             </JobImageContainer>
 
             <JobInfoContainer>
@@ -38,8 +38,9 @@ const JobCard: React.FC<jobCardProps> = ({ job }) => {
                     <JobLocation>
                         Location: {job.location || 'remote'}
                     </JobLocation>
-                    {job.date || job.foundAt}
-                    <JobSource>{job.source}</JobSource>
+                    <JobSourceInfo>
+                        {job.date || job.foundAt} - <small>{job.source}</small>
+                    </JobSourceInfo>
                 </JobCardFooter>
             </JobInfoContainer>
         </Container>

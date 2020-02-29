@@ -8,4 +8,5 @@ export default interface jobListItem {
 
     foundAt: string;
     source: string;
+    job_avatar: string;
 }
