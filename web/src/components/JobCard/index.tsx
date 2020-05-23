@@ -22,7 +22,7 @@ interface jobCardProps {
 
 const JobCard: React.FC<jobCardProps> = ({ job }) => {
     return (
-        <Container href={'#'}>
+        <Container href={job.link} target="_blank">
             <JobImageContainer>
                 <JobImg src={job.job_avatar || LogoImg} />
             </JobImageContainer>
@@ -41,7 +41,8 @@ const JobCard: React.FC<jobCardProps> = ({ job }) => {
                         Location: {job.location || 'remote'}
                     </JobLocation>
                     <JobSourceInfo>
-                        {job.date || job.foundAt} - <small>{job.source.value}</small>
+                        {job.date || job.foundAt} -{' '}
+                        <small>{job.source.value}</small>
                     </JobSourceInfo>
                 </JobCardFooter>
             </JobInfoContainer>

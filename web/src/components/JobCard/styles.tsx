@@ -14,6 +14,8 @@ const Container = styled.a`
     background-color: ${Colors.dracula.Background};
     border: 2px solid ${Colors.dracula.Selection};
 
+    display: "table-cell";
+
     a :hover {
         cursor: pointer;
     }
