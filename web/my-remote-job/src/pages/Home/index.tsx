@@ -28,7 +28,7 @@ const Home: React.FC = props => {
 
     return (
         <Background>
-            <Header onSerach={searchJobs} />
+            <Header onSearch={searchJobs} />
             <Container>
                 <JobsContianer>
                     {jobs.map(job => (

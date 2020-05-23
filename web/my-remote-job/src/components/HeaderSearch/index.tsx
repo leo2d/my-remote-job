@@ -15,10 +15,10 @@ import {
 } from './styles';
 
 export interface HeaderSearchProps {
-    onSerach: (text: string) => Promise<any>;
+    onSearch: (text: string) => Promise<any>;
 }
 
-const HeaderSearch: React.FC<HeaderSearchProps> = ({ onSerach }) => {
+const HeaderSearch: React.FC<HeaderSearchProps> = ({ onSearch }) => {
     const [queryText, setQueryText] = useState('');
 
     const showEraseBtn = queryText !== '';
@@ -26,7 +26,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ onSerach }) => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         console.log('submited');
-        onSerach(queryText);
+        onSearch(queryText);
     };
 
     return (
