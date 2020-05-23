@@ -1,4 +1,4 @@
-# Market Share Chat - Web Client
+# My Remote Job - Web Client
 
 ### Into the stack:
 
