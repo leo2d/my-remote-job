@@ -10,7 +10,10 @@ export interface JobModel extends ScrapedJob, Document {
 const jobSchema: Schema = new Schema({
     foundAt: { type: Date, required: true, default: Date.now() },
     isActive: { type: Boolean, required: true, default: true },
-    sourceId: { type: String, required: true },
+    source: {
+        key: { type: String, required: true },
+        value: { type: String, required: true },
+    },
 
     title: { type: String, required: true },
     link: { type: String, required: true },

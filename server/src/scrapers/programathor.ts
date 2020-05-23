@@ -25,8 +25,6 @@ const getPageSelector = async (page = 1): Promise<CheerioStatic> => {
 const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
     const jobs = Array<ScrapedJob>();
 
-    const sourceId = Source.programathor.id;
-
     const jobsList = $('body')
         .find('div.wrapper-jobs-list > div.container > div.row')
         .find('div.col-md-9 > div.cell-list > a');
@@ -69,7 +67,7 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
             employmentType,
             link,
             description: 'test',
-            sourceId,
+            source: Source.programathor,
         };
 
         jobs.push(job);

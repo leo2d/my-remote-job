@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+    # chat-api:
+    #     container_name: server_my_remote_job_api
+    #     build:
+    #         context: ./server
+    #         dockerfile: ./Dockerfile.dev
+    #     volumes:
+    #         - ./server/src:/home/node/server/src
+    #         - ./server/nodemon.json:/home/node/server/nodemon.json
+    #     ports:
+    #         - "3300:3300"
+    #         - "9229:9229"
+    #     restart: on-failure
+    #     command: "npm start"
+    #     networks:
+    #         - my-remote-job-backend
+    #     depends_on:
+    #         - mongodb
+
+    mongodb:
+        image: mongo:latest
+        container_name: mongodb_my_remote_job
+        hostname: "mongodb"
+        environment:
+          MONGO_INITDB_DATABASE: myRemoteJob
+          MONGO_INITDB_ROOT_USERNAME: boss
+          MONGO_INITDB_ROOT_PASSWORD: MongoPwd
+        ports:
+          - 27017:27017
+        volumes:
+          - mongodb:/data/db
+        networks:
+          - my-remote-job-backend
+        restart: unless-stopped
+
+volumes:
+    mongodb:
+
+networks:
+    my-remote-job-backend:
+        driver: bridge

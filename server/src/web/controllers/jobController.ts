@@ -1,11 +1,16 @@
 import { Response, Request, NextFunction } from 'express';
 
-import { getBySourceId, getByJobId, getAllActiveJobs } from '../../services/jobService';
+import {
+    getBySourceId,
+    getByJobId,
+    getAllActiveJobs,
+} from '../../services/jobService';
 import Source from '../../shared/source';
+import JobSearchFilter from '../../shared/types/JobSearchFilter';
 
 const getHipstersJobs = async (req: Request, res: Response) => {
     try {
-        const result = await getBySourceId(Source.hipsters.id);
+        const result = await getBySourceId(Source.hipsters.key);
 
         res.json(result);
     } catch (error) {
@@ -15,7 +20,7 @@ const getHipstersJobs = async (req: Request, res: Response) => {
 
 const getGeekHunterJobs = async (req: Request, res: Response) => {
     try {
-        const result = await getBySourceId(Source.geekhunter.id);
+        const result = await getBySourceId(Source.geekhunter.key);
 
         res.json(result);
     } catch (error) {
@@ -25,7 +30,7 @@ const getGeekHunterJobs = async (req: Request, res: Response) => {
 
 const getStackOverflowJobs = async (req: Request, res: Response) => {
     try {
-        const result = await getBySourceId(Source.stackOverflow.id);
+        const result = await getBySourceId(Source.stackOverflow.key);
 
         res.json(result);
     } catch (error) {
@@ -55,4 +60,23 @@ const getAllJobs = async (req: Request, res: Response) => {
     }
 };
 
-export { getGeekHunterJobs, getHipstersJobs, getStackOverflowJobs, getJobById, getAllJobs };
+const getJobsByFilter = async (req: Request, res: Response) => {
+    try {
+        const filter = req.query as JobSearchFilter;
+
+        const result = await getAllActiveJobs(filter);
+
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export {
+    getGeekHunterJobs,
+    getHipstersJobs,
+    getStackOverflowJobs,
+    getJobById,
+    getAllJobs,
+    getJobsByFilter,
+};

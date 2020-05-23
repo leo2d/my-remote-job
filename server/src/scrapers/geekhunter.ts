@@ -59,8 +59,6 @@ const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
 const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
     const jobs = Array<ScrapedJob>();
 
-    const sourceId = Source.geekhunter.id;
-
     const jobsContainer = $('body').find(
         'div.jobs-container > div.job > div.information'
     );
@@ -96,12 +94,12 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
         const job: ScrapedJob = {
             title,
             company: '',
-            location,
+            location: location || '-',
             date,
             employmentType: '',
             link,
             description: 'test',
-            sourceId,
+            source: Source.geekhunter,
         };
 
         jobs.push(job);
