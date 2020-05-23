@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = props => {
                 <LogoContainer>
                     <Logo src={LogoImg} />
                 </LogoContainer>
-                <HeaderSearch onSerach={props.onSerach} />
+                <HeaderSearch onSearch={props.onSearch} />
                 <HeaderLinksContainer>
                     <HeaderLink href="/#">.</HeaderLink>
                 </HeaderLinksContainer>
