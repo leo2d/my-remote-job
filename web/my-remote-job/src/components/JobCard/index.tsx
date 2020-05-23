@@ -14,6 +14,8 @@ import {
     JobImageContainer,
 } from './styles';
 
+import LogoImg from '../../assets/images/logo.svg';
+
 interface jobCardProps {
     job: jobListItem;
 }
@@ -22,7 +24,7 @@ const JobCard: React.FC<jobCardProps> = ({ job }) => {
     return (
         <Container href={'#'}>
             <JobImageContainer>
-                <JobImg src={job.job_avatar || ''} />
+                <JobImg src={job.job_avatar || LogoImg} />
             </JobImageContainer>
 
             <JobInfoContainer>
