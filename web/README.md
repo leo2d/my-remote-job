@@ -2,7 +2,7 @@
 
 ### Into the stack:
 
-- [Create React App](https://github.com/facebook/create-react-app "Create React App") - This project was bootstrapped with using __React Js 16.12.0__ and Hooks
+- [Create React App](https://github.com/facebook/create-react-app "Create React App") - This project was bootstrapped with Create React App using __React Js 16.12.0__ and Hooks
 - [TypeScript]( https://www.typescriptlang.org/ "TypeScript") - Used for provide types
 
 
