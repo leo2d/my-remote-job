@@ -1,7 +1,12 @@
 import { Response, Request, NextFunction } from 'express';
 
-import { getBySourceId, getByJobId, getAllActiveJobs } from '../../services/jobService';
+import {
+    getBySourceId,
+    getByJobId,
+    getAllActiveJobs,
+} from '../../services/jobService';
 import Source from '../../shared/source';
+import JobSearchFilter from '../../shared/types/JobSearchFilter';
 
 const getHipstersJobs = async (req: Request, res: Response) => {
     try {
@@ -55,4 +60,23 @@ const getAllJobs = async (req: Request, res: Response) => {
     }
 };
 
-export { getGeekHunterJobs, getHipstersJobs, getStackOverflowJobs, getJobById, getAllJobs };
+const getJobsByFilter = async (req: Request, res: Response) => {
+    try {
+        const filter = req.query as JobSearchFilter;
+
+        const result = await getAllActiveJobs(filter);
+
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export {
+    getGeekHunterJobs,
+    getHipstersJobs,
+    getStackOverflowJobs,
+    getJobById,
+    getAllJobs,
+    getJobsByFilter,
+};
