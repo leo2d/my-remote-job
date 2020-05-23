@@ -49,6 +49,9 @@ const JobTitle = styled.span`
     font-weight: 500;
 
     text-overflow: ellipsis;
+
+    text-transform: capitalize;
+
 `;
 const JobImg = styled.img`
     background-color: ${Colors.dracula.Background};

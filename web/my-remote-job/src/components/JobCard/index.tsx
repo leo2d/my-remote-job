@@ -29,7 +29,7 @@ const JobCard: React.FC<jobCardProps> = ({ job }) => {
 
             <JobInfoContainer>
                 <JobTitleContainer>
-                    <JobTitle>{job.title}</JobTitle>
+                    <JobTitle>{job.title.toLowerCase()}</JobTitle>
                 </JobTitleContainer>
                 {job.company ? (
                     <JobCompany>Company: {job.company}</JobCompany>
