@@ -25,7 +25,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ onSearch }) => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        console.log('submited');
+
         onSearch(queryText);
     };
 
@@ -48,7 +48,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ onSearch }) => {
                     </EraseButton>
                 </InputContainer>
                 <SearchIconContainer>
-                    <SearchIcon src={SearchImg} />
+                    <SearchIcon src={SearchImg} onClick={e => handleSubmit(e)} />
                 </SearchIconContainer>
             </HeaderSearchForm>
         </Container>
