@@ -16,8 +16,13 @@ For now, the supported sites are:
 
 [StackOverflow Jobs](https://stackoverflow.com/jobs "StackOverflow")
 
-#### Note:
-These sources offer many job opportunities, but "My Remote Job" accepts _*remote*_  jobs only.
+#### Notes:
+- These sources offer many job opportunities, but "My Remote Job" accepts _*remote*_  jobs only. 
 
-At the current stage, the Scrapers and the data update with MongoDB are working well. In the next steps, I will put an interface/ client side.
+- Deppending when you're running this projects, the Crawlers can be broken dude to sources changes. If it's happen still free for open a issue or a pr.
 
+### To run this project, follow these steps :
+
+- [Backend Api]( https://github.com/leo2d/my-remote-job/blob/master/server/README.md "BackEnd") 
+
+- [FrontEnd Web]( https://github.com/leo2d/my-remote-job/blob/master/web/README.md "FrontEnd") 
