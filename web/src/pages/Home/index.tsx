@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Title, Container, JobsContianer, Background } from './styles';
+import { Container, JobsContianer, Background } from './styles';
 import Header from '../../components/Header';
 import jobListItem from '../../types/jobListItem';
 import JobCard from '../../components/JobCard';
