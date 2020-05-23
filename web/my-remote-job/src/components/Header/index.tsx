@@ -8,18 +8,20 @@ import {
     HeaderLinksContainer,
     HeaderLink,
 } from './styles';
-import HeaderSearch from '../HeaderSearch';
+import HeaderSearch, { HeaderSearchProps } from '../HeaderSearch';
 
-const Header: React.FC = _ => {
+interface HeaderProps extends HeaderSearchProps {}
+
+const Header: React.FC<HeaderProps> = props => {
     return (
         <HeaderContainer>
             <Container>
                 <LogoContainer>
                     <Logo src={LogoImg} />
                 </LogoContainer>
-                <HeaderSearch />
+                <HeaderSearch onSerach={props.onSerach} />
                 <HeaderLinksContainer>
-                    <HeaderLink href="/#">Click here</HeaderLink>
+                    <HeaderLink href="/#">.</HeaderLink>
                 </HeaderLinksContainer>
             </Container>
         </HeaderContainer>

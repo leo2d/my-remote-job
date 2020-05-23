@@ -14,14 +14,24 @@ import {
     EraseIcon,
 } from './styles';
 
-const HeaderSearch: React.FC = () => {
+export interface HeaderSearchProps {
+    onSerach: (text: string) => Promise<any>;
+}
+
+const HeaderSearch: React.FC<HeaderSearchProps> = ({ onSerach }) => {
     const [queryText, setQueryText] = useState('');
 
     const showEraseBtn = queryText !== '';
 
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        console.log('submited');
+        onSerach(queryText);
+    };
+
     return (
         <Container>
-            <HeaderSearchForm onSubmit={() => console.log('submited')}>
+            <HeaderSearchForm onSubmit={e => handleSubmit(e)}>
                 <InputContainer>
                     <SearchTextInput
                         value={queryText}
