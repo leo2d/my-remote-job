@@ -41,7 +41,7 @@ const JobCard: React.FC<jobCardProps> = ({ job }) => {
                         Location: {job.location || 'remote'}
                     </JobLocation>
                     <JobSourceInfo>
-                        {job.date || job.foundAt} - <small>{job.source}</small>
+                        {job.date || job.foundAt} - <small>{job.source.value}</small>
                     </JobSourceInfo>
                 </JobCardFooter>
             </JobInfoContainer>
