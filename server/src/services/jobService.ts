@@ -2,7 +2,7 @@ import Job from '../models/job';
 
 const getBySourceId = async (sourceId: string) => {
     try {
-        const jobs = await Job.find({ sourceId }, (err, res) => {
+        const jobs = await Job.find({ 'source.key': sourceId }, (err, res) => {
             if (err) console.log(`ERROR : ${err}`);
             return res;
         }).sort({ foundAt: -1 });

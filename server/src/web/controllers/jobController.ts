@@ -5,7 +5,7 @@ import Source from '../../shared/source';
 
 const getHipstersJobs = async (req: Request, res: Response) => {
     try {
-        const result = await getBySourceId(Source.hipsters.id);
+        const result = await getBySourceId(Source.hipsters.key);
 
         res.json(result);
     } catch (error) {
@@ -15,7 +15,7 @@ const getHipstersJobs = async (req: Request, res: Response) => {
 
 const getGeekHunterJobs = async (req: Request, res: Response) => {
     try {
-        const result = await getBySourceId(Source.geekhunter.id);
+        const result = await getBySourceId(Source.geekhunter.key);
 
         res.json(result);
     } catch (error) {
@@ -25,7 +25,7 @@ const getGeekHunterJobs = async (req: Request, res: Response) => {
 
 const getStackOverflowJobs = async (req: Request, res: Response) => {
     try {
-        const result = await getBySourceId(Source.stackOverflow.id);
+        const result = await getBySourceId(Source.stackOverflow.key);
 
         res.json(result);
     } catch (error) {

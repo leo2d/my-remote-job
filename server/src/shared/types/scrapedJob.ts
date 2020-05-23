@@ -1,3 +1,5 @@
+import { keyValue } from "./keyValue";
+
 export default interface ScrapedJob {
     title: string;
     link: string;
@@ -10,5 +12,5 @@ export default interface ScrapedJob {
     companyDetails?: string;
     salaryRange?: string;
     skills?: string[];
-    sourceId: string;
+    source: keyValue<string>;
 }
