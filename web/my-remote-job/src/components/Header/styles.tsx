@@ -46,7 +46,8 @@ const HeaderLinksContainer = styled.div`
 
 const HeaderLink = styled.a`
     text-decoration: none;
-    color:#565
+    color:#565;
+    display:none;
 `;
 
 export {
