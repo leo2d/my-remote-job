@@ -19,7 +19,7 @@ For now, the supported sites are:
 #### Notes:
 - These sources offer many job opportunities, but "My Remote Job" accepts _*remote*_  jobs only. 
 
-- Deppending when you're running this projects, the Crawlers can be broken dude to sources changes. If it's happen still free for open a issue or a pr.
+- Depending on when you're running these projects, the Crawlers can be broken dude to sources changes. If it's happening still free to open an Issue or a PR.
 
 ### To run this project, follow these steps :
 
