@@ -14,8 +14,8 @@ const Container = styled.a`
     background-color: ${Colors.dracula.Background};
     border: 2px solid ${Colors.dracula.Selection};
 
-    a :hover{
-        /* cursor: pointer; */
+    a :hover {
+        cursor: pointer;
     }
 `;
 
@@ -30,6 +30,10 @@ const JobInfoContainer = styled.div`
         white-space: normal;
         word-wrap: break-word;
         word-break: break-all;
+    }
+
+    > * {
+        padding-right: 20px;
     }
 `;
 const JobTitleContainer = styled.div`
