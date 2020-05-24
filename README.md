@@ -4,11 +4,11 @@ Welcome to My Remote Job!
 
 This project was born from the need to find remote jobs, mainly in Brazil.
 
-It takes a long time to navigate between many sites to get new information about the job, and particularly, I don't like subscribing to mailing lists, newsletters and the like.
+It takes a long time to navigate between many sites to get new information about the job, and particularly, I don't like subscribing to mailing lists, newsletters and things like that.
 
 So I decided to create an application where I could see the opportunities open in the same format with the same information on the same screen.
 
-For now, the supported sites are:
+For now, this app shows jobs from the following sources:
 
 [GeekHunter](https://www.geekhunter.com.br "GeekHunter")
 
