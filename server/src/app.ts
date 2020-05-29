@@ -10,8 +10,12 @@ const port = 3333;
 const app = express();
 
 app.use(express.json());
+app.use('/api', routes);
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 var allowedOrigins = ['http://localhost:3000', ''];
+
 app.use(
     cors({
         origin: function(origin, callback) {
@@ -23,9 +27,5 @@ app.use(
         },
     })
 );
-
-app.use(routes);
-
-app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.listen(port, () => console.log(`Scraper listening on port ${port}!`));
