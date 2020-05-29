@@ -71,10 +71,8 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
 
         const location = $(element)
             .find('div.company-detail > p.city')
-            .contents()
-            .first()
-            .text()
-            .trim();
+            .contents()[2]
+            .nodeValue.trim();
 
         const createdAt = $(element)
             .find('small')
@@ -94,11 +92,11 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
         const job: ScrapedJob = {
             title,
             company: '',
-            location: location || '-',
+            location,
             date,
             employmentType: '',
             link,
-            description: 'test',
+            description: '-',
             source: Source.geekhunter,
         };
 
