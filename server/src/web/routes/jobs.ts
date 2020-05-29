@@ -1,23 +1,11 @@
-import { Router, Response, Request, NextFunction } from 'express';
+import { Router } from 'express';
 
-import {
-    getGeekHunterJobs,
-    getHipstersJobs,
-    getStackOverflowJobs,
-    getJobById,
-    getAllJobs,
-    getJobsByFilter,
-} from '../controllers/jobController';
+import jobController from '../controllers/jobController';
 import validateFilter from '../middlewares/validateFilter';
 
 const routes: Router = Router();
 
-// routes.get('/', getAllJobs);
-routes.get('/stackoverflow', getStackOverflowJobs);
-routes.get('/geekhunter', getGeekHunterJobs);
-routes.get('/hipsters', getHipstersJobs);
-
-routes.get('/:id', getJobById);
-routes.get('/', validateFilter, getJobsByFilter);
+routes.get('/:id', jobController.getJobById);
+routes.get('/', validateFilter, jobController.getJobsByFilter);
 
 export { routes as jobsRoutes };
