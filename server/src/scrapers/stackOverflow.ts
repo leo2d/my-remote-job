@@ -45,9 +45,10 @@ const getPageSelector = async (page = 1): Promise<CheerioStatic> => {
 };
 
 const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
-    const jobsAmountText = $('div#index-hed > div.js-search-title')
-        .find('span.description')
-        .first()
+    const jobsAmountText = $(
+        '#job-search-form > div.grid.fd-row.jc-space-between.ai-center'
+    )
+        .find('div.grid--cell.js-search-title.-header.seo-header > span')
         .text();
 
     const total = parseInt(jobsAmountText.match(/\d+/)[0]);
@@ -104,8 +105,8 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
             date,
             employmentType: '',
             link,
-            description: 'test',
-            source:Source.stackOverflow,
+            description: '-',
+            source: Source.stackOverflow,
         };
 
         jobs.push(job);
