@@ -121,7 +121,7 @@ const solveDate = (jobDate: string): string => {
 };
 
 const timeSwitch = (key: string, time: number): number => {
-    const options: Dictionary = {
+    const options: Dictionary<number> = {
         meses: 30 * time,
         mes: 30,
         dias: time,

@@ -46,4 +46,4 @@ const getActiveJobs = async (filter?: JobSearchFilter) => {
     }
 };
 
-export { getBySourceId, getByJobId, getActiveJobs as getAllActiveJobs };
+export default { getBySourceId, getByJobId, getActiveJobs };
