@@ -129,7 +129,7 @@ const solveDate = (createdAt: string): string => {
 };
 
 const timeSwitch = (key: string, time: number): number => {
-    const options: Dictionary = {
+    const options: Dictionary<number> = {
         h: 0,
         d: time,
         yesterday: 1,
