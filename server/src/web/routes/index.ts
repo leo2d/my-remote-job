@@ -1,17 +1,13 @@
 import { Router } from 'express';
 
-import { scraperRoutes } from './scraper';
-import { jobsRoutes } from './jobs';
+import scraperRoutes from './scraperRoutes';
+import jobsRoutes from './jobsRoutes';
+import healthCheckRoutes from './healthCheckRoutes';
 
 const routes: Router = Router();
 
-routes.get('/api/', async (req, res) => {
-    const result = { health: "Ok, i'm alive" };
-
-    res.json(result);
-});
-
-routes.use('/api/scraper', scraperRoutes);
-routes.use('/api/jobs', jobsRoutes);
+routes.use('/health', healthCheckRoutes);
+routes.use('/scraper', scraperRoutes);
+routes.use('/jobs', jobsRoutes);
 
 export default routes;

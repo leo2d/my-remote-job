@@ -8,24 +8,19 @@ import * as swaggerDoc from './swaggerDoc.json';
 const port = 3333;
 
 const app = express();
-
 app.use(express.json());
 
-var allowedOrigins = ['http://localhost:3000', ''];
-app.use(
-    cors({
-        origin: function(origin, callback) {
-            if (!origin) return callback(null, true);
-            if (allowedOrigins.indexOf(origin) === -1) {
-                return callback(new Error('Not allowed by CORS'), false);
-            }
-            return callback(null, true);
-        },
-    })
-);
+var whitelist = ['http://localhost:3000', 'http://127.0.0.1:3000'];
+var corsOptions = {
+    origin: function(origin: any, callback: any) {
+        if (whitelist.indexOf(origin) !== -1) callback(null, true);
+        else callback(new Error('Not allowed by CORS'));
+    },
+};
 
-app.use(routes);
+app.use(cors(corsOptions));
+app.use('/api', routes);
 
-app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.listen(port, () => console.log(`Scraper listening on port ${port}!`));

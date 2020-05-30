@@ -1,58 +1,11 @@
-import { Response, Request, NextFunction } from 'express';
+import { Response, Request } from 'express';
 
-import {
-    getBySourceId,
-    getByJobId,
-    getAllActiveJobs,
-} from '../../services/jobService';
-import Source from '../../shared/source';
+import jobService from '../../services/jobService';
 import JobSearchFilter from '../../shared/types/JobSearchFilter';
-
-const getHipstersJobs = async (req: Request, res: Response) => {
-    try {
-        const result = await getBySourceId(Source.hipsters.key);
-
-        res.json(result);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-const getGeekHunterJobs = async (req: Request, res: Response) => {
-    try {
-        const result = await getBySourceId(Source.geekhunter.key);
-
-        res.json(result);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-const getStackOverflowJobs = async (req: Request, res: Response) => {
-    try {
-        const result = await getBySourceId(Source.stackOverflow.key);
-
-        res.json(result);
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 const getJobById = async (req: Request, res: Response) => {
     try {
-        const jobId = req.params.id;
-
-        const result = await getByJobId(jobId);
-
-        res.json(result);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-const getAllJobs = async (req: Request, res: Response) => {
-    try {
-        const result = await getAllActiveJobs();
+        const result = await jobService.getByJobId(req.params.id);
 
         res.json(result);
     } catch (error) {
@@ -64,7 +17,7 @@ const getJobsByFilter = async (req: Request, res: Response) => {
     try {
         const filter = req.query as JobSearchFilter;
 
-        const result = await getAllActiveJobs(filter);
+        const result = await jobService.getActiveJobs(filter);
 
         res.json(result);
     } catch (error) {
@@ -72,11 +25,4 @@ const getJobsByFilter = async (req: Request, res: Response) => {
     }
 };
 
-export {
-    getGeekHunterJobs,
-    getHipstersJobs,
-    getStackOverflowJobs,
-    getJobById,
-    getAllJobs,
-    getJobsByFilter,
-};
+export default { getJobById, getJobsByFilter };
