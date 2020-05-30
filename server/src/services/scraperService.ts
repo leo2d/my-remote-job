@@ -4,7 +4,7 @@ import { scrapGeekhunter } from '../scrapers/geekhunter';
 import { scrapProgramathor } from '../scrapers/programathor';
 import Job, { JobModel } from '../models/job';
 import ScrapedJob from '../shared/types/scrapedJob';
-import { throws } from 'assert';
+import Source from '../shared/source';
 
 const getActiveJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
     try {
@@ -24,10 +24,12 @@ const getActiveJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
 };
 
 const storeJobs = async (jobs: ScrapedJob[]): Promise<any> => {
-    Job.insertMany(jobs, (error, docs) => {
-        if (error) console.log(error);
-        else console.log(docs);
-    });
+    try {
+        const insertedjobs = await Job.insertMany(jobs);
+        console.log('insertedjobs', insertedjobs);
+    } catch (error) {
+        throw error;
+    }
 };
 
 const disableJobs = async (jobs: JobModel[]): Promise<any> => {
@@ -66,7 +68,9 @@ const updateJobs = async (jobs: ScrapedJob[]) => {
             await Promise.all([
                 storeJobs(newjobs),
                 disableJobs(unavailableJobs),
-            ]).catch(error => throws(error));
+            ]).catch(error => {
+                throw new Error(error);
+            });
         } else {
             await storeJobs(jobs);
         }
@@ -75,68 +79,51 @@ const updateJobs = async (jobs: ScrapedJob[]) => {
     }
 };
 
-const createHisptersData = async () => {
-    const jobs = await scrapHipsters();
-
-    try {
-        await storeJobs(jobs);
-    } catch (error) {
-        console.log(error);
-    }
-};
-const createGeekHunterData = async () => {
-    const jobs = await scrapGeekhunter();
-
-    try {
-        await storeJobs(jobs);
-    } catch (error) {
-        console.log(error);
-    }
-};
-const createStackOverflowData = async () => {
-    const jobs = await scrapStackoverflow();
-
-    try {
-        await storeJobs(jobs);
-    } catch (error) {
-        console.log(error);
+const getScraperFunctionBySourceId = (
+    sourceId: string
+): (() => Promise<ScrapedJob[]>) => {
+    switch (sourceId) {
+        case Source.geekhunter.key:
+            return scrapGeekhunter;
+        case Source.hipsters.key:
+            return scrapHipsters;
+        case Source.stackOverflow.key:
+            return scrapStackoverflow;
+        case Source.programathor.key:
+            return scrapProgramathor;
+        default:
+            throw new Error('Invalid Source');
     }
 };
 
-const updateStackoverflowData = async () => {
+const updateData = async (sourceId: string): Promise<void> => {
     try {
-        const jobs = await scrapStackoverflow();
+        const scrap = getScraperFunctionBySourceId(sourceId);
+        const jobs = await scrap();
         await updateJobs(jobs);
     } catch (error) {
-        console.log(error);
-    }
-};
-const updateHipstersData = async () => {
-    try {
-        const jobs = await scrapHipsters();
-        await updateJobs(jobs);
-    } catch (error) {
-        console.log(error);
-    }
-};
-const updateGeekHunterData = async () => {
-    try {
-        const jobs = await scrapGeekhunter();
-        await updateJobs(jobs);
-    } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
-export {
-    createGeekHunterData,
-    createStackOverflowData,
-    createHisptersData,
-    scrapGeekhunter,
-    scrapHipsters,
-    scrapProgramathor,
-    scrapStackoverflow,
-    updateHipstersData,
-    updateGeekHunterData,
-    updateStackoverflowData,
+const createData = async (sourceId: string): Promise<void> => {
+    try {
+        const scrap = getScraperFunctionBySourceId(sourceId);
+        const jobs = await scrap();
+        await storeJobs(jobs);
+    } catch (error) {
+        console.error(error);
+    }
 };
+
+const scrapData = async (sourceId: string): Promise<ScrapedJob[]> => {
+    try {
+        const scrap = getScraperFunctionBySourceId(sourceId);
+        const jobs = await scrap();
+        return jobs;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export default { createData, updateData, scrapData };

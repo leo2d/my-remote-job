@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
-import { scraperRoutes } from './scraper';
-import { jobsRoutes } from './jobs';
+import scraperRoutes from './scraperRoutes';
 import healthCheckRoutes from './healthCheckRoutes';
 
 const routes: Router = Router();
