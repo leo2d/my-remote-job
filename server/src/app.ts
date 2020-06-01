@@ -21,7 +21,7 @@ const start = () => {
     app.use(cors(corsOptions));
     app.use('/api', routes);
 
-    app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+    // app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
     app.listen(SERVER_PORT, () =>
         console.log(`Scraper listening on port ${SERVER_PORT}!`)
