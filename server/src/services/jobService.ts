@@ -36,9 +36,14 @@ const getActiveJobs = async (filter?: JobSearchFilter) => {
         if (filter?.title)
             ORconditions.$or.push({ title: new RegExp(filter.title, 'i') });
 
-        const jobs = await Job.find({ isActive: true })
+        const query = Job.find({ isActive: true })
             .and(ORconditions.$or.length ? ORconditions : {})
-            .sort({ foundAt: -1 });
+            .sort({ foundAt: -1 })
+            .skip(filter.skip ?? 0);
+
+        if (filter.take) query.limit(filter.take);
+
+        const jobs = await query;
 
         return jobs;
     } catch (error) {
