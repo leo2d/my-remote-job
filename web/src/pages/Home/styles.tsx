@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Colors from '../../styles/colors';
+import device from '../../styles/device';
 
 const Title = styled.h3`
     font-style: italic;
@@ -9,6 +10,31 @@ const Title = styled.h3`
 const Container = styled.div`
     margin: 20px;
     background-color: ${Colors.dracula.Background};
+
+    @media ${device.mobileL} {
+        /* max-width: 800px; */
+        min-height: 720px;
+    }
+
+    @media ${device.mobileM} {
+        /* max-width: 800px; */
+        min-height: 600px;
+    }
+
+    @media ${device.laptop} {
+        /* max-width: 800px; */
+        min-height: 720px;
+    }
+
+    @media ${device.desktop} {
+        /* max-width: 1400px; */
+        min-height: 720px;
+    }
+
+    @media ${device.desktopL} {
+        /* max-width: 1400px; */
+        min-height: 820px;
+    }
 `;
 
 const Background = styled.div`
