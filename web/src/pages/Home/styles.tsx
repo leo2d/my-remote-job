@@ -41,6 +41,16 @@ const Background = styled.div`
     background-color: ${Colors.dracula.Background};
 `;
 
+const MessageContainer = styled.div`
+    margin-top: 10em;
+    text-align: center;
+`;
+
+const YellowMessage = styled.span`
+    color: ${Colors.dracula.Yellow};
+    font-size: 25px;
+`;
+
 const JobsContianer = styled.div`
     width: 100%;
     max-width: 1366px !important;
@@ -55,4 +65,11 @@ const JobsContianer = styled.div`
     display: grid;
 `;
 
-export { Title, Container, JobsContianer, Background };
+export {
+    Title,
+    Container,
+    JobsContianer,
+    Background,
+    YellowMessage,
+    MessageContainer,
+};
