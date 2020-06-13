@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../styles/device';
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -12,24 +13,40 @@ const HeaderContainer = styled.header`
     top: 0;
     z-index: 9997;
     padding: 0;
+
+    @media ${device.laptop} and (orientation: landscape) {
+        padding: 0 0 90px 0;
+    }
 `;
 const Container = styled.div`
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
     width: 100%;
     max-width: 1366px !important;
     margin: auto;
-    padding: 0 20px 0 30px;
+
+    @media screen and (max-width: 600px) {
+        padding: 0 4px 0 4px;
+    }
+
+    @media ${device.laptop} and (orientation: landscape) {
+        padding: 5px 20px 5px 30px;
+    }
 `;
 
 const LogoContainer = styled.div`
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding:0 0 5px 0;
+    @media ${device.laptop} {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 0 0 5px 0;
+    }
+
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
 `;
 
 const Logo = styled.img`
@@ -38,16 +55,22 @@ const Logo = styled.img`
 `;
 
 const HeaderLinksContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px 220px 0px 150px;
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
+
+    @media ${device.laptop} {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px 220px 0px 150px;
+    }
 `;
 
 const HeaderLink = styled.a`
     text-decoration: none;
-    color:#565;
-    display:none;
+    color: #565;
+    display: none;
 `;
 
 export {
@@ -56,5 +79,5 @@ export {
     Logo,
     LogoContainer,
     HeaderLinksContainer,
-    HeaderLink
+    HeaderLink,
 };
