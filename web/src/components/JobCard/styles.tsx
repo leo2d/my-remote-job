@@ -19,6 +19,9 @@ const Container = styled.a`
     a :hover {
         cursor: pointer;
     }
+
+    word-wrap: break-word !important;
+
 `;
 
 const JobImageContainer = styled.div`
@@ -28,21 +31,23 @@ const JobInfoContainer = styled.div`
     display: grid;
     grid-auto-columns: 260px;
 
-    span {
-        white-space: normal;
-        word-wrap: break-word;
-        word-break: break-all;
-    }
 
-    > * {
+    /* span {
+        /* white-space: normal; */
+        /* word-wrap: break-word; */
+        /* word-break: break-all; /
+    } */
+
+    /* > * {
         padding-right: 20px;
-    }
+    } */
 `;
 const JobTitleContainer = styled.div`
     width: 100%;
     display: grid;
     padding-bottom: 5px;
     position: relative;
+
 `;
 const JobTitle = styled.span`
     color: ${Colors.dracula.Green};
