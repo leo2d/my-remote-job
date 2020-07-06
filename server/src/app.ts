@@ -2,8 +2,6 @@ import express from 'express';
 import routes from './web/routes';
 import cors from 'cors';
 
-import swaggerUi from 'swagger-ui-express';
-import * as swaggerDoc from './swaggerDoc.json';
 import { SERVER_PORT } from './config/config';
 
 const start = () => {
@@ -20,8 +18,6 @@ const start = () => {
 
     app.use(cors(corsOptions));
     app.use('/api', routes);
-
-    // app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
     app.listen(SERVER_PORT, () =>
         console.log(`Scraper listening on port ${SERVER_PORT}!`)
