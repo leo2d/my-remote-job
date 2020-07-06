@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import scraperService from '../../services/scraperService';
+import scraperService from '../../core/services/scraperService';
 
 const createJobs = async (req: Request, res: Response) => {
     try {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../styles/device';
 
 interface visibleProps {
     visible: boolean;
@@ -8,9 +9,7 @@ const Container = styled.div`
     width: 100%;
     flex: 1;
     max-width: 450px;
-    min-width: 370px;
 
-    padding: 0 9px 0 17px;
     justify-content: center;
     -webkit-transform: translateX(0);
     transform: translateX(0);
@@ -19,6 +18,25 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         flex-direction: row;
+    }
+
+    @media ${device.mobileS} {
+        min-width: 323px;
+    }
+
+    @media ${device.mobileM} {
+        min-width: 323px;
+        padding: 0 10px 0 10px;
+    }
+
+    @media ${device.mobileL} {
+        min-width: 323px;
+        padding-left: 13px;
+    }
+
+    @media ${device.laptop} {
+        min-width: 370px;
+        padding: 0 9px 0 17px;
     }
 `;
 
