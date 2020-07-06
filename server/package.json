@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node src/app.ts",
+    "start": "ts-node src/app.ts",
     "debug": "nodemon --inspect src/app.ts",
     "lint": "tsc --noEmit && eslint 'src/**/*.{js,ts}' 'tests/**/*.{js,ts}' --quiet --fix",
     "test": "mocha -r ts-node/register 'tests/**/*.test.{js,ts}'"
