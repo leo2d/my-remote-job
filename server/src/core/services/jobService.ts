@@ -1,9 +1,9 @@
-import Job from '../../infra/mongodb/models/job';
+import Jobs from '../../infra/mongodb/models/jobs';
 import JobSearchFilter from '../../shared/types/JobSearchFilter';
 
 const getBySourceId = async (sourceId: string) => {
     try {
-        const jobs = await Job.find({ 'source.key': sourceId }, (err, res) => {
+        const jobs = await Jobs.find({ 'source.key': sourceId }, (err, res) => {
             if (err) console.log(`ERROR : ${err}`);
             return res;
         }).sort({ foundAt: -1 });
@@ -16,7 +16,7 @@ const getBySourceId = async (sourceId: string) => {
 
 const getByJobId = async (id: string) => {
     try {
-        const job = await Job.findById(id, (err, res) => {
+        const job = await Jobs.findById(id, (err, res) => {
             if (err) console.log(`ERROR : ${err}`);
             return res;
         });
@@ -36,7 +36,7 @@ const getActiveJobs = async (filter?: JobSearchFilter) => {
         if (filter?.title)
             ORconditions.$or.push({ title: new RegExp(filter.title, 'i') });
 
-        const query = Job.find({ isActive: true })
+        const query = Jobs.find({ isActive: true })
             .and(ORconditions.$or.length ? ORconditions : {})
             .sort({ foundAt: -1 })
             .skip(filter.skip ?? 0);

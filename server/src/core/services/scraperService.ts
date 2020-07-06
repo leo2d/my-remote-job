@@ -2,13 +2,13 @@ import { scrapHipsters } from '../../infra/scrapers/hipsters';
 import { scrapStackoverflow } from '../../infra/scrapers/stackOverflow';
 import { scrapGeekhunter } from '../../infra/scrapers/geekhunter';
 import { scrapProgramathor } from '../../infra/scrapers/programathor';
-import Job, { JobModel } from '../../infra/mongodb/models/job';
+import Jobs, { JobModel } from '../../infra/mongodb/models/jobs';
 import ScrapedJob from '../../shared/types/scrapedJob';
 import Source from '../../shared/source';
 
 const getActiveJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
     try {
-        const jobs = await Job.find(
+        const jobs = await Jobs.find(
             { link: { $in: links }, isActive: true },
             (err, res) => {
                 if (err) console.log(`ERROR : ${err}`);
@@ -25,7 +25,7 @@ const getActiveJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
 
 const storeJobs = async (jobs: ScrapedJob[]): Promise<void> => {
     try {
-        await Job.insertMany(jobs);
+        await Jobs.insertMany(jobs);
     } catch (error) {
         throw error;
     }
@@ -37,7 +37,7 @@ const disableJobs = async (jobs: JobModel[]): Promise<void> => {
 
         const ids = jobs.map(x => x._id);
 
-        await Job.updateMany(
+        await Jobs.updateMany(
             { _id: { $in: ids } },
             { $set: { isActive: false } }
         );
