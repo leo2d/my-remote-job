@@ -22,4 +22,4 @@ dotenv.config({ path: path });
 //variables
 export const MONGO_URI = process.env.MONGO_URI;
 
-export const SERVER_PORT = parseInt(process.env.SERVER_PORT);
+export const SERVER_PORT = parseInt(process.env.PORT || "3333", 10);
