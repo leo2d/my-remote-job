@@ -1,9 +1,9 @@
 import cheerio from 'cheerio';
-import fetchHtml from '../shared/fetchHtml';
-import { formatToBRdate } from '../utils/dateFormater';
-import ScrapedJob from '../shared/types/scrapedJob';
-import Dictionary from '../shared/types/dictionary';
-import Source from '../shared/source';
+import { formatToBRdate } from '../../utils/dateFormater';
+import ScrapedJob from '../../shared/types/scrapedJob';
+import Dictionary from '../../shared/types/dictionary';
+import fetchHTML from '../../shared/fetchHtml';
+import Source from '../../shared/source';
 
 const scrapData = async () => {
     const $ = await getPageSelector();
@@ -37,7 +37,7 @@ const getAllJobs = async (pageStart = 1, pagesCount: number) => {
 
 const getPageSelector = async (page = 1): Promise<CheerioStatic> => {
     const { url } = getUrl(page);
-    const html = await fetchHtml(url);
+    const html = await fetchHTML(url);
 
     const $ = cheerio.load(html);
 
@@ -45,13 +45,12 @@ const getPageSelector = async (page = 1): Promise<CheerioStatic> => {
 };
 
 const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
-    const jobsAmountText = $(
-        '#job-search-form > div.grid.fd-row.jc-space-between.ai-center'
-    )
-        .find('div.grid--cell.js-search-title.-header.seo-header > span')
+    const totalText = $('body')
+        .find('div.jobs-found > p')
+        .last()
         .text();
 
-    const total = parseInt(jobsAmountText.match(/\d+/)[0]);
+    const total = parseInt(totalText.match(/\d+/)[0]);
     const pageCount = Math.ceil(total / amountPerPage);
 
     return pageCount;
@@ -60,53 +59,45 @@ const getPagesCount = ($: CheerioStatic, amountPerPage: number): number => {
 const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
     const jobs = Array<ScrapedJob>();
 
-    const results = $('body')
-        .find("div[class='listResults']")
-        .find('div.-job > div.grid > div.fl1 ');
+    const jobsContainer = $('body').find(
+        'div.jobs-container > div.job > div.information'
+    );
 
-    results.each((index, element) => {
+    jobsContainer.each((index, element) => {
         const title = $(element)
-            .find('a.stretched-link')
-            .text()
-            .trim();
-
-        const company = $(element)
-            .find('h3.fc-black-700')
-            .children()
-            .first()
+            .find('h2 > a')
             .text()
             .trim();
 
         const location = $(element)
-            .find('h3.fc-black-700 > span.fc-black-500')
-            .text()
-            .trim();
-
-        const jobPath = $(element)
-            .find('a.stretched-link')
-            .attr('href')
-            .trim();
-
-        const link = `${baseUrl}${jobPath}`;
+            .find('div.company-detail > p.city')
+            .contents()[2]
+            .nodeValue.trim();
 
         const createdAt = $(element)
-            .find('div.mt2')
-            .children()
-            .first()
+            .find('small')
             .text()
-            .trim();
+            .trim()
+            .toLowerCase();
 
         const date = solveDate(createdAt);
 
+        const jobRoute = $(element)
+            .find('h2 > a')
+            .attr('href')
+            .trim();
+
+        const link = `${baseUrl}${jobRoute}`;
+
         const job: ScrapedJob = {
             title,
-            company,
+            company: '',
             location,
             date,
             employmentType: '',
             link,
             description: '-',
-            source: Source.stackOverflow,
+            source: Source.geekhunter,
         };
 
         jobs.push(job);
@@ -115,12 +106,13 @@ const extractJobs = ($: CheerioStatic, baseUrl: string): ScrapedJob[] => {
     return jobs;
 };
 
-const solveDate = (createdAt: string): string => {
-    const match = createdAt.match(/(\d+).*([a-z])\s/);
-    const key = match ? match[2] : createdAt;
-    const time = parseInt(match?.[1]) || 0;
+const solveDate = (jobDate: string): string => {
+    const createdAt = jobDate.replace('ê', 'e');
+    const match = createdAt.match(/(\d+)\s(\w+)\s/);
+    const time = parseInt(match[1]);
+    const keyWord = match[2];
 
-    const daysToSub = timeSwitch(key, time);
+    const daysToSub = timeSwitch(keyWord, time) || 0;
     const date = new Date();
 
     date.setDate(date.getDate() - daysToSub);
@@ -130,20 +122,23 @@ const solveDate = (createdAt: string): string => {
 
 const timeSwitch = (key: string, time: number): number => {
     const options: Dictionary<number> = {
-        h: 0,
-        d: time,
-        yesterday: 1,
+        meses: 30 * time,
+        mes: 30,
+        dias: time,
+        dia: 1,
+        horas: 0,
+        hora: 0,
     };
 
     return options[key] || 0;
 };
 
 const getUrl = (page = 1) => {
-    const baseUrl = 'https://stackoverflow.com/';
+    const baseUrl = 'https://www.geekhunter.com.br';
     return {
         baseUrl,
-        url: `${baseUrl}/jobs?r=true&sort=p&pg=${page}`,
+        url: `${baseUrl}/vagas?workType=remoto&page=1&order=new&page=${page}`,
     };
 };
 
-export { scrapData as scrapStackoverflow };
+export { scrapData as scrapGeekhunter };

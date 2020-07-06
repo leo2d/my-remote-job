@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 
-import jobService from '../../services/jobService';
+import jobService from '../../core/services/jobService';
 import JobSearchFilter from '../../shared/types/JobSearchFilter';
 
 const getJobById = async (req: Request, res: Response) => {
