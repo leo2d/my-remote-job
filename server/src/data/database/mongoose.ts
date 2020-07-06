@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
+import { MONGO_URI } from '../../config/config';
 
-const connectionString = '';
-
-mongoose.connect(connectionString, {
+mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });

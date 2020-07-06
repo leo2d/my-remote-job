@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node src/app.ts",
+    "start": "ts-node src/app.ts",
     "debug": "nodemon --inspect src/app.ts",
     "lint": "tsc --noEmit && eslint 'src/**/*.{js,ts}' 'tests/**/*.{js,ts}' --quiet --fix",
     "test": "mocha -r ts-node/register 'tests/**/*.test.{js,ts}'"
@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "intl": "^1.2.5",
     "mongoose": "^5.8.10",

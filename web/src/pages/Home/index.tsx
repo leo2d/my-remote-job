@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, JobsContianer, Background } from './styles';
+import {
+    Container,
+    JobsContianer,
+    Background,
+    YellowMessage,
+    MessageContainer,
+} from './styles';
 import Header from '../../components/Header';
 import jobListItem from '../../types/jobListItem';
 import JobCard from '../../components/JobCard';
@@ -30,11 +36,17 @@ const Home: React.FC = props => {
         <Background>
             <Header onSearch={searchJobs} />
             <Container>
-                <JobsContianer>
-                    {jobs.map(job => (
-                        <JobCard key={job._id} job={job} />
-                    ))}
-                </JobsContianer>
+                {jobs.length ? (
+                    <JobsContianer>
+                        {jobs.map(job => (
+                            <JobCard key={job._id} job={job} />
+                        ))}
+                    </JobsContianer>
+                ) : (
+                    <MessageContainer>
+                        <YellowMessage>No Jobs Found</YellowMessage>
+                    </MessageContainer>
+                )}
             </Container>
         </Background>
     );
