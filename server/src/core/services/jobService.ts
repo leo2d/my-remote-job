@@ -1,5 +1,5 @@
-import Job from '../models/job';
-import JobSearchFilter from '../shared/types/JobSearchFilter';
+import Job from '../../infra/mongodb/models/job';
+import JobSearchFilter from '../../shared/types/JobSearchFilter';
 
 const getBySourceId = async (sourceId: string) => {
     try {

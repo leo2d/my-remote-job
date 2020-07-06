@@ -1,5 +1,5 @@
-import mongoose from '../data/database/mongoose';
-import ScrapedJob from '../shared/types/scrapedJob';
+import mongoose from '../mongoose';
+import ScrapedJob from '../../../shared/types/scrapedJob';
 import { Document, Model, model, Types, Schema, Query } from 'mongoose';
 
 export interface JobModel extends ScrapedJob, Document {

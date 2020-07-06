@@ -1,10 +1,10 @@
-import { scrapHipsters } from '../scrapers/hipsters';
-import { scrapStackoverflow } from '../scrapers/stackOverflow';
-import { scrapGeekhunter } from '../scrapers/geekhunter';
-import { scrapProgramathor } from '../scrapers/programathor';
-import Job, { JobModel } from '../models/job';
-import ScrapedJob from '../shared/types/scrapedJob';
-import Source from '../shared/source';
+import { scrapHipsters } from '../../infra/scrapers/hipsters';
+import { scrapStackoverflow } from '../../infra/scrapers/stackOverflow';
+import { scrapGeekhunter } from '../../infra/scrapers/geekhunter';
+import { scrapProgramathor } from '../../infra/scrapers/programathor';
+import Job, { JobModel } from '../../infra/mongodb/models/job';
+import ScrapedJob from '../../shared/types/scrapedJob';
+import Source from '../../shared/source';
 
 const getActiveJobsByLinks = async (links: string[]): Promise<JobModel[]> => {
     try {
