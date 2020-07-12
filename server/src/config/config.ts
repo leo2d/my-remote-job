@@ -1,23 +1,12 @@
 import * as dotenv from 'dotenv';
 
-const getPath = () => {
-    switch (process.env.NODE_ENV) {
-        case 'stage':
-            return `${__dirname}/env.stage`;
-        case 'production':
-            return `${__dirname}/.env.prod`;
-        case 'test':
-            return `${__dirname}/.env.test`;
-        default:
-            return `${__dirname}/.env.dev`;
-    }
-};
+if (process.env.NODE_ENV !== 'production') {
+    const path = process.env.NODE_ENV.includes('test')
+        ? `${__dirname}/.env.test`
+        : `${__dirname}/.env.dev`;
 
-dotenv.config();
-
-const path = getPath();
-
-dotenv.config({ path: path });
+    dotenv.config({ path });
+}
 
 //variables
 export const MONGO_URI = process.env.MONGO_URI;
