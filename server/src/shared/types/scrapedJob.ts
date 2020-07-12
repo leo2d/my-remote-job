@@ -1,4 +1,4 @@
-import { keyValue } from "./keyValue";
+import { keyValue } from './keyValue';
 
 export default interface ScrapedJob {
     title: string;
