@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV && process.env.NODE_ENV !== 'production') {
     const path = process.env.NODE_ENV.includes('test')
         ? `${__dirname}/.env.test`
         : `${__dirname}/.env.dev`;
