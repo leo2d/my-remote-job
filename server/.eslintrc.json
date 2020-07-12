@@ -3,7 +3,6 @@
         "es6": true,
         "node": true
     },
-    // "extends": ["eslint:recommended", "prettier"],
     "parser": "@typescript-eslint/parser",
     "extends": [
         "plugin:@typescript-eslint/recommended",
@@ -22,9 +21,6 @@
     "plugins": ["prettier"],
     "rules": {
         "prettier/prettier": "error",
-        "no-use-before-define": [
-            "error",
-            { "functions": false, "classes": true, "variables": false }
-        ]
+        "no-use-before-define": "off"
     }
 }
