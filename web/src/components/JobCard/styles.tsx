@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Colors from '../../styles/colors';
+import device from '../../styles/device';
 
 const Container = styled.a`
     text-decoration: none;
@@ -10,6 +11,10 @@ const Container = styled.a`
     border-radius: 6px;
     border: 2px solid ${Colors.dracula.Selection};
     background-color: ${Colors.dracula.Background};
+
+    @media ${device.mobileS} {
+        min-width: 260px;
+    }
 
     a :hover {
         cursor: pointer;
