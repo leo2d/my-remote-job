@@ -1,53 +1,40 @@
 import styled from 'styled-components';
 import Colors from '../../styles/colors';
+import device from '../../styles/device';
 
 const Container = styled.a`
-    height: 200px;
-    grid-template-columns: 85px 1px 1fr;
-    grid-column-gap: 20px;
-    padding: 20px;
-    display: grid;
-    border-radius: 6px;
     text-decoration: none;
     width: 100%;
-
-    background-color: ${Colors.dracula.Background};
+    min-height: 200px;
+    display: flex;
+    padding: 20px;
+    border-radius: 6px;
     border: 2px solid ${Colors.dracula.Selection};
+    background-color: ${Colors.dracula.Background};
 
-    display: "table-cell";
+    @media ${device.mobileS} {
+        min-width: 260px;
+    }
 
     a :hover {
         cursor: pointer;
     }
-
-    word-wrap: break-word !important;
-
 `;
 
 const JobImageContainer = styled.div`
     height: 80px;
+    margin-right: 20px;
 `;
 const JobInfoContainer = styled.div`
-    display: grid;
-    grid-auto-columns: 260px;
-
-
-    /* span {
-        /* white-space: normal; */
-        /* word-wrap: break-word; */
-        /* word-break: break-all; /
-    } */
-
-    /* > * {
-        padding-right: 20px;
-    } */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 const JobTitleContainer = styled.div`
     width: 100%;
     display: grid;
     padding-bottom: 5px;
     position: relative;
-
 `;
 const JobTitle = styled.span`
     color: ${Colors.dracula.Green};
@@ -55,10 +42,7 @@ const JobTitle = styled.span`
     font-size: 16px;
     font-weight: 500;
 
-    text-overflow: ellipsis;
-
     text-transform: capitalize;
-
 `;
 const JobImg = styled.img`
     background-color: ${Colors.dracula.Background};
@@ -71,11 +55,16 @@ const JobLocation = styled.span`
     color: ${Colors.dracula.Cyan};
 
     display: block;
+    margin-bottom: 4px;
 `;
 const JobCompany = styled.span`
     color: ${Colors.dracula.Orange};
 `;
 const JobSourceInfo = styled.div`
+    display: flex;
+    align-items: center;
+    margin-right: 3px;
+
     small {
         padding: 4px;
         border-radius: 4px;
