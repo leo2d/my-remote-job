@@ -24,7 +24,11 @@ const Home: React.FC = props => {
     }, []);
 
     const searchJobs = async (text: string = '') => {
-        const url = text ? `/jobs?title=${text}&company=${text}` : '/jobs';
+        const encoded = encodeURIComponent(text);
+
+        const url = text
+            ? `/jobs?title=${encoded}&company=${encoded}`
+            : '/jobs';
 
         const response = await Api.get(url);
         if (response.data) {
